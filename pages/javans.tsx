@@ -1,8 +1,11 @@
 import React from 'react'
+import Sidebar from '../components/sidebar'
 
 const Javans = () => {
   return (
-    <div>javans</div>
+    <div>
+      <Sidebar/>
+    </div>
   )
 }
 

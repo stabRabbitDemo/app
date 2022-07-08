@@ -6,11 +6,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-const tableDisplay: FC = (): ReactElement => {
+const TableDisplay: FC = (): ReactElement => {
 
     return (
         <TableContainer>
-
+            <TableHead>
+                <TableRow>
+                    <TableCell>Order ID</TableCell>
+                    <TableCell>Product</TableCell>
+                </TableRow>
+            </TableHead>
         </TableContainer>
     )
 }
+
+export default TableDisplay;

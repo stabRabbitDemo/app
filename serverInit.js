@@ -28,7 +28,7 @@ const createOrderStream = async () => {
         ],
         'orderTopic',
         'json',
-        5
+        1
       );
   } catch (error) {
     console.log(error);
@@ -42,15 +42,16 @@ const unpaidOrdersTable = async () => {
       'unpaidOrdersTable',
       'ORDERS',
       [
-        'orderId AS Order ID',
-        'productName AS Product Name',
-        'unitPrice AS Unit Price',
+        'orderId AS Order_ID',
+        'productName AS Product_Name',
+        'unitPrice AS Unit_Price',
+        'quantity AS Quantity',
         'LATEST_BY_OFFSET(status) AS Status'
       ],
       {
         topic: 'orderTopic',
         value_format: 'json',
-        partitions: '3'
+        partitions: '1'
       },
       {
         WHERE: 'status = UNPAID',
@@ -65,20 +66,30 @@ const unpaidOrdersTable = async () => {
 //create materialized view for paid orders
 const paidOrdersTable = async () => {
   try {
+
+    // const data = await client.ksql(`CREATE TABLE paidOrdersTable 
+    // WITH (kafka_topic='orderTopic', value_format='json', partitions='1') 
+    // AS SELECT orderId AS Order_ID, LATEST_BY_OFFSET(productName) AS Product_Name, LATEST_BY_OFFSET(unitPrice) AS Unit_Price, 
+    // SUM(quantity) AS Quantity, 
+    // LATEST_BY_OFFSET(status) AS Status FROM ORDERS 
+    // WHERE status = 'PAID' GROUP BY orderId EMIT CHANGES;`);
     const data = await client.createTableAs(
       'paidOrdersTable',
       'ORDERS',
       [
-        'orderId',
-        'LATEST_BY_OFFSET(status) AS recentStatus'
+        'orderId AS Order_ID',
+        'LATEST_BY_OFFSET(productName) AS Product_Name',
+        'LATEST_BY_OFFSET(unitPrice) AS Unit_Price',
+        'SUM(quantity) AS Quantity',
+        'LATEST_BY_OFFSET(status) AS Status'
       ],
       {
         topic: 'orderTopic',
         value_format: 'json',
-        partitions: '3'
+        partitions: '1'
       },
       {
-        WHERE: 'status = PAID',
+        WHERE: `status = "PAID"`,
         GROUP_BY: 'orderId'
       }
     );
@@ -107,10 +118,10 @@ const unusualActivities = async () => {
         {
           topic: 'orderTopic',
           value_format: 'json',
-          partitions: '3'
+          partitions: '1'
         },
         {
-          WHERE: 'status = PAID',
+          WHERE: `status = "PAID'`,
           GROUP_BY: 'orderId'
         }
       );
@@ -119,8 +130,8 @@ const unusualActivities = async () => {
   };
 };
 
-dropStream();
-createOrderStream();
+// dropStream();
+// createOrderStream();
 paidOrdersTable();
-unpaidOrdersTable();
-unusualActivities();
+// unpaidOrdersTable();
+// unusualActivities();
