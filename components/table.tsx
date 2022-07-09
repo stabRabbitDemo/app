@@ -10,7 +10,12 @@ const tableDisplay: FC = (): ReactElement => {
 
     return (
         <TableContainer>
-
-        </TableContainer>
+        <TableHead>
+            <TableRow>
+                <TableCell>Order ID</TableCell>
+                <TableCell>Product</TableCell>
+            </TableRow>
+        </TableHead>
+    </TableContainer>
     )
 }
