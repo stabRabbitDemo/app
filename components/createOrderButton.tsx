@@ -15,7 +15,8 @@ const CreateOrderButton: FC = (): ReactElement => {
     <Button
       id="createOrderButton"
       variant="contained"
-      sx={{ padding: "1rem", margin: "1rem", fontSize: "large" }}
+      color="primary"
+      sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width:"16rem"}}
       onClick={() => createOrder()}
     ><AddIcon style={{ 'color': "white"}} sx={{mr: "1rem"}}/>Create Order</Button>
   )

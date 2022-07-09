@@ -26,9 +26,9 @@ const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="ksqlDB-JS Demo App" sx={{fontSize: 50}} />
     </ListItemButton>
-    <ListItemButton>
+    {/* <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
@@ -51,13 +51,13 @@ const mainListItems = (
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Integrations" />
-    </ListItemButton>
+    </ListItemButton> */}
   </Fragment>
 );
 
 const secondaryListItems = (
   <Fragment>
-    <ListSubheader component="div" inset>
+    <ListSubheader sx={{fontSize: 20}} component="div" inset>
       Saved reports
     </ListSubheader>
     <List className={styles.sidebarButtonList}>
@@ -112,7 +112,7 @@ const Sidebar: FC = (): ReactElement => {
   );
 
   return (
-    <div className="">
+    <div className={styles.sidebar}>
       <Drawer
         variant="permanent"
         open={open}

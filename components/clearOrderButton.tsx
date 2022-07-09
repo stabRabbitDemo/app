@@ -16,7 +16,8 @@ const ClearOrderButton: FC = (): ReactElement => {
     <Button 
     id="clearOrderButton" 
     variant="contained"
-    sx={{padding: "1rem", margin: "1rem", fontSize:"large"}}
+    color="secondary"
+    sx={{padding: "1rem", margin: "1rem", fontSize:"large", width: "16rem"}}
     onClick = {() => console.log('clear order button clicked')}
     ><ClearAllIcon style={{ 'color': "white"}} sx={{mr: "1rem"}}/> Clear Order</Button>
   )

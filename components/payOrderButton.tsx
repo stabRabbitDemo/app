@@ -16,7 +16,8 @@ const PayOrderButton: FC = (): ReactElement => {
     <Button 
     id="payOrderButton" 
     variant="contained"
-    sx={{padding: "1rem", margin: "1rem", fontSize:"large"}}
+    color="success"
+    sx={{padding: "1rem", margin: "1rem", fontSize:"large", width:"16rem"}}
     onClick = {() => console.log('pay order button clicked')}
     ><PaymentIcon style={{ 'color': "white"}} sx={{mr: "1rem"}}/> Pay Order</Button>
   )
