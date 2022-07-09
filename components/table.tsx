@@ -14,8 +14,11 @@ const tableDisplay: FC = (): ReactElement => {
             <TableRow>
                 <TableCell>Order ID</TableCell>
                 <TableCell>Product</TableCell>
+                <TableCell></TableCell>
             </TableRow>
         </TableHead>
     </TableContainer>
     )
 }
+
+export default tableDisplay
