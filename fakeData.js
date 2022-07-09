@@ -6,7 +6,7 @@ const client = new ksqldb({ksqldbURL: 'http://localhost:8088'})
 
 fakeData.createOrder = () => {
   const productName = faker.commerce.product();
-  const unitPrice = faker.commerce.price();
+  const unitPrice = parseInt(faker.commerce.price());
   const quantity = Math.floor(Math.random() * 100);
   const status = 'UNPAID';
   const orderId = faker.datatype.uuid();

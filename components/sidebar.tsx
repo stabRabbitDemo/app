@@ -13,11 +13,15 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import MuiDrawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
+import { flexbox } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import CreateOrderButton from './createOrderButton';
 import PayOrderButton from './payOrderButton';
 import ClearOrderButton from './clearOrderButton';
 import styles from '../styles/Home.module.css'
+import StartServerButton from './startServerButton';
+import { Box } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 
 
 const mainListItems = (
@@ -26,7 +30,7 @@ const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ksqlDB-JS Demo App" sx={{fontSize: 50}} />
+      <ListItemText primary="ksqlDB-JS Demo App" sx={{ fontSize: 50 }} />
     </ListItemButton>
     {/* <ListItemButton>
       <ListItemIcon>
@@ -55,28 +59,28 @@ const mainListItems = (
   </Fragment>
 );
 
-const secondaryListItems = (
-  <Fragment>
-    <ListSubheader sx={{fontSize: 20}} component="div" inset>
-      Saved reports
-    </ListSubheader>
-    <List className={styles.sidebarButtonList}>
-    <ListItem>
-      <CreateOrderButton />
-    </ListItem>
-    <ListItem>
-    <PayOrderButton/>
-    </ListItem>
+// const secondaryListItems = (
+//   <Fragment>
+//     <ListSubheader sx={{fontSize: 20}} component="div" inset>
+//       Saved reports
+//     </ListSubheader>
+//     <List className={styles.sidebarButtonList}>
+//     <ListItem>
+//       <CreateOrderButton refreshData = {refreshData} setRefreshData = {setRefreshData} />
+//     </ListItem>
+//     <ListItem>
+//     <PayOrderButton/>
+//     </ListItem>
 
-    <ListItem>
-    <ClearOrderButton />
-    </ListItem>
+//     <ListItem>
+//     <ClearOrderButton />
+//     </ListItem>
 
-    </List>
-  </Fragment>
-);
+//     </List>
+//   </Fragment>
+// );
 
-const Sidebar: FC = (): ReactElement => {
+const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refreshData, setRefreshData }): ReactElement => {
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -90,7 +94,7 @@ const Sidebar: FC = (): ReactElement => {
         position: 'relative',
         whiteSpace: 'nowrap',
         width: drawerWidth,
-        height: '100vh',
+        height: 'auto',
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.enteringScreen,
@@ -113,6 +117,7 @@ const Sidebar: FC = (): ReactElement => {
 
   return (
     <div className={styles.sidebar}>
+      <CssBaseline/>
       <Drawer
         variant="permanent"
         open={open}
@@ -121,11 +126,33 @@ const Sidebar: FC = (): ReactElement => {
         <List component="nav">
           {mainListItems}
           <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
+          <Fragment>
+            <ListSubheader sx={{ fontSize: 20 }} component="div" inset>
+              Stuff
+            </ListSubheader>
+            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <List className={styles.sidebarButtonList}>
+                <ListItem>
+                  <CreateOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                </ListItem>
+                <ListItem>
+                  <PayOrderButton />
+                </ListItem>
+                <ListItem>
+                  <ClearOrderButton />
+                </ListItem>
+              </List>
+              <List>
+                <ListItem>
+                  <StartServerButton />
+                </ListItem>
+              </List>
+            </Box>
+          </Fragment>
         </List>
-      </Drawer>
+      </Drawer >
 
-    </div>
+    </div >
   )
 }
 

@@ -1,8 +1,10 @@
 const ksqldb = require('ksqldb-js');
 const client = new ksqldb({ ksqldbURL: 'http://localhost:8088' });
 
+const serverInit = {};
+
 //drop all tables/streams/topic
-const dropStream = async () => {
+serverInit.dropStream = async () => {
   try {
     await client.ksql('DROP TABLE IF EXISTS unpaidOrdersTable;');
     await client.ksql('DROP TABLE IF EXISTS paidOrdersTable;');
@@ -14,7 +16,7 @@ const dropStream = async () => {
 };
 
 //Create order stream
-const createOrderStream = async () => {
+serverInit.createOrderStream = async () => {
   try {
     const result = await client.createStream
       (
@@ -36,16 +38,16 @@ const createOrderStream = async () => {
 };
 
 //create materialized view for open orders
-const unpaidOrdersTable = async () => {
+serverInit.unpaidOrdersTable = async () => {
   try {
     const data = await client.createTableAs(
       'unpaidOrdersTable',
       'ORDERS',
       [
         'orderId AS Order_ID',
-        'productName AS Product_Name',
-        'unitPrice AS Unit_Price',
-        'quantity AS Quantity',
+        'LATEST_BY_OFFSET(productName) AS Product_Name',
+        'LATEST_BY_OFFSET(unitPrice) AS Unit_Price',
+        'SUM(quantity) AS Quantity',
         'LATEST_BY_OFFSET(status) AS Status'
       ],
       {
@@ -54,7 +56,7 @@ const unpaidOrdersTable = async () => {
         partitions: '1'
       },
       {
-        WHERE: 'status = UNPAID',
+        WHERE: "LATEST_BY_OFFSET(status) = 'UNPAID'",
         GROUP_BY: 'orderId'
       }
     );
@@ -64,7 +66,7 @@ const unpaidOrdersTable = async () => {
 };
 
 //create materialized view for paid orders
-const paidOrdersTable = async () => {
+serverInit.paidOrdersTable = async () => {
   try {
 
     // const data = await client.ksql(`CREATE TABLE paidOrdersTable 
@@ -89,7 +91,7 @@ const paidOrdersTable = async () => {
         partitions: '1'
       },
       {
-        WHERE: `status = "PAID"`,
+        WHERE: `LATEST_BY_OFFSET(status) = 'PAID'`,
         GROUP_BY: 'orderId'
       }
     );
@@ -99,7 +101,7 @@ const paidOrdersTable = async () => {
 };
 
 //create materialized view for unusual activities
-const unusualActivities = async () => {
+serverInit.unusualActivities = async () => {
   try {
     const data = await client.createTableAs
       (
@@ -121,7 +123,7 @@ const unusualActivities = async () => {
           partitions: '1'
         },
         {
-          WHERE: `status = "PAID'`,
+          WHERE: `status = 'PAID'`,
           GROUP_BY: 'orderId'
         }
       );
@@ -130,8 +132,14 @@ const unusualActivities = async () => {
   };
 };
 
-// dropStream();
-// createOrderStream();
-paidOrdersTable();
-// unpaidOrdersTable();
-// unusualActivities();
+const runserverInit = async () => {
+// await serverInit.dropStream(); // <- RUN FIRST ALONE
+// await serverInit.createOrderStream();
+// await serverInit.unpaidOrdersTable();
+// await serverInit.paidOrdersTable();
+// await serverInit.unusualActivities();
+}
+
+runserverInit()
+
+module.exports = serverInit;
