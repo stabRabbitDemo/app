@@ -1,4 +1,4 @@
-import { FC, ReactElement, Fragment, useState } from 'react';
+import React, { FC, ReactElement, Fragment, useState, ReactEventHandler } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -22,6 +22,7 @@ import styles from '../styles/Home.module.css'
 import StartServerButton from './startServerButton';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import reactSyntaxHighlighter from 'react-syntax-highlighter';
 
 
 const mainListItems = (
@@ -80,7 +81,7 @@ const mainListItems = (
 //   </Fragment>
 // );
 
-const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refreshData, setRefreshData }): ReactElement => {
+const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading: Function }> = ({ refreshData, setRefreshData, setIsLoading }): ReactElement => {
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -144,7 +145,7 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refre
               </List>
               <List>
                 <ListItem>
-                  <StartServerButton />
+                  <StartServerButton setIsLoading={setIsLoading} />
                 </ListItem>
               </List>
             </Box>
