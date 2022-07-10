@@ -30,7 +30,7 @@ const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ksqlDB-JS Demo App" sx={{ fontSize: 50 }} />
+      <ListItemText primary="ksqlDB-JS Demo App" sx={{ fontSize: 64, color: "teal" }} />
     </ListItemButton>
     {/* <ListItemButton>
       <ListItemIcon>
@@ -117,7 +117,7 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refre
 
   return (
     <div className={styles.sidebar}>
-      <CssBaseline/>
+      <CssBaseline />
       <Drawer
         variant="permanent"
         open={open}

@@ -70,77 +70,77 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
         if (type === 'unpaid') {
             return (
                 <TableBody>
-            {Array.isArray(rowData) ? rowData.map((row: (string | number)[], index: number) => {
-                const isItemSelected: boolean = index % 2 === 0;
-                
-                // method to insert new row with updated status value
-                const updateOrder: Function = (): void => {
-                    fetch('/api/payone', {
-                        body: JSON.stringify(row),
-                        method: 'POST'
-                    })
-                    .then(res => res.json())
-                    .then(data => console.log(data))
-                }
-                
-                return (
-                    <TableRow
-                        hover
-                        role="checkbox"
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={index}
-                        selected={isItemSelected}>
-                        <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
-                        <TableCell id="ProductCell" align="left">{row[1]}</TableCell>
-                        <TableCell id="unitPriceCell" align="left">{row[2]}</TableCell>
-                        <TableCell id="quantityCell" align="left">{row[3]}</TableCell>
-                        <TableCell id="statusCell" align="right">
-                            <OrderStatus status={row[4]} />
-                        </TableCell>
-                        <TableCell id="payButtonCell">
-                            <Button
-                              variant="outlined"
-                              color="success"
-                              onClick={() => updateOrder()}
-                              >Pay</Button>
-                        </TableCell>
-                        <TableCell id="clearButtonCell">
-                            <Button variant="outlined">Clear</Button>
-                        </TableCell>
-                    </TableRow>)
-            }) : null}
-            </TableBody>
+                    {Array.isArray(rowData) ? rowData.map((row: (string | number)[], index: number) => {
+                        const isItemSelected: boolean = index % 2 === 0;
+
+                        // method to insert new row with updated status value
+                        const updateOrder: Function = (): void => {
+                            fetch('/api/payone', {
+                                body: JSON.stringify(row),
+                                method: 'POST'
+                            })
+                                .then(res => res.json())
+                                .then(data => console.log(data))
+                        }
+
+                        return (
+                            <TableRow
+                                hover
+                                role="checkbox"
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                aria-checked={isItemSelected}
+                                tabIndex={-1}
+                                key={index}
+                                selected={isItemSelected}>
+                                <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
+                                <TableCell id="ProductCell" align="left">{row[1]}</TableCell>
+                                <TableCell id="unitPriceCell" align="left">{row[2]}</TableCell>
+                                <TableCell id="quantityCell" align="left">{row[3]}</TableCell>
+                                <TableCell id="statusCell" align="right">
+                                    <OrderStatus status={row[4]} />
+                                </TableCell>
+                                <TableCell id="payButtonCell">
+                                    <Button
+                                        variant="outlined"
+                                        color="success"
+                                        onClick={() => updateOrder()}
+                                    >Pay</Button>
+                                </TableCell>
+                                <TableCell id="clearButtonCell">
+                                    <Button variant="outlined">Clear</Button>
+                                </TableCell>
+                            </TableRow>)
+                    }) : null}
+                </TableBody>
             )
         } else {
             return (
                 <TableBody>
-                {Array.isArray(rowData) ? rowData.map((row: (string | number)[], index: number) => {
-                    const isItemSelected: boolean = index % 2 === 0;
+                    {Array.isArray(rowData) ? rowData.map((row: (string | number)[], index: number) => {
+                        const isItemSelected: boolean = index % 2 === 0;
 
-                    return (
-                        <TableRow
-                            hover
-                            role="checkbox"
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            aria-checked={isItemSelected}
-                            tabIndex={-1}
-                            key={index}
-                            selected={isItemSelected}>
-                            <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
-                            <TableCell id="ProductCell" align="left">{row[1]}</TableCell>
-                            <TableCell id="unitPriceCell" align="left">{row[2]}</TableCell>
-                            <TableCell id="quantityCell" align="left">{row[3]}</TableCell>
-                            <TableCell id="statusCell" align="right">
-                                <OrderStatus status={row[4]} />
-                            </TableCell>
-                            <TableCell id="clearButtonCell">
-                                <Button variant="outlined">Clear</Button>
-                            </TableCell>
-                        </TableRow>)
-                }) : null}
-            </TableBody>
+                        return (
+                            <TableRow
+                                hover
+                                role="checkbox"
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                aria-checked={isItemSelected}
+                                tabIndex={-1}
+                                key={index}
+                                selected={isItemSelected}>
+                                <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
+                                <TableCell id="ProductCell" align="left">{row[1]}</TableCell>
+                                <TableCell id="unitPriceCell" align="left">{row[2]}</TableCell>
+                                <TableCell id="quantityCell" align="left">{row[3]}</TableCell>
+                                <TableCell id="statusCell" align="right">
+                                    <OrderStatus status={row[4]} />
+                                </TableCell>
+                                <TableCell id="clearButtonCell">
+                                    <Button variant="outlined">Clear</Button>
+                                </TableCell>
+                            </TableRow>)
+                    }) : null}
+                </TableBody>
 
             )
         }
@@ -164,7 +164,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                 <Table
                     aria-labelledby="tableTitle"
                     sx={{
-                        '& .MuiTableCell-root:first-child': {
+                        '& .MuiTableCell-root:first-of-type': {
                             pl: 2
                         },
                         '& .MuiTableCell-root:last-child': {

@@ -56,7 +56,8 @@ serverInit.unpaidOrdersTable = async () => {
         partitions: '1'
       },
       {
-        WHERE: "LATEST_BY_OFFSET(status) = 'UNPAID'",
+        // WHERE: "status = 'UNPAID'",
+        HAVING: "LATEST_BY_OFFSET(status) = 'UNPAID'",
         GROUP_BY: 'orderId'
       }
     );
@@ -69,11 +70,11 @@ serverInit.unpaidOrdersTable = async () => {
 serverInit.paidOrdersTable = async () => {
   try {
 
-    // const data = await client.ksql(`CREATE TABLE paidOrdersTable 
-    // WITH (kafka_topic='orderTopic', value_format='json', partitions='1') 
-    // AS SELECT orderId AS Order_ID, LATEST_BY_OFFSET(productName) AS Product_Name, LATEST_BY_OFFSET(unitPrice) AS Unit_Price, 
-    // SUM(quantity) AS Quantity, 
-    // LATEST_BY_OFFSET(status) AS Status FROM ORDERS 
+    // const data = await client.ksql(`CREATE TABLE paidOrdersTable
+    // WITH (kafka_topic='orderTopic', value_format='json', partitions='1')
+    // AS SELECT orderId AS Order_ID, LATEST_BY_OFFSET(productName) AS Product_Name, LATEST_BY_OFFSET(unitPrice) AS Unit_Price,
+    // SUM(quantity) AS Quantity,
+    // LATEST_BY_OFFSET(status) AS Status FROM ORDERS
     // WHERE status = 'PAID' GROUP BY orderId EMIT CHANGES;`);
     const data = await client.createTableAs(
       'paidOrdersTable',
@@ -91,7 +92,8 @@ serverInit.paidOrdersTable = async () => {
         partitions: '1'
       },
       {
-        WHERE: `LATEST_BY_OFFSET(status) = 'PAID'`,
+        // WHERE: `status = 'PAID'`,
+        HAVING: "LATEST_BY_OFFSET(status) = 'UNPAID'",
         GROUP_BY: 'orderId'
       }
     );
@@ -133,11 +135,11 @@ serverInit.unusualActivities = async () => {
 };
 
 const runserverInit = async () => {
-// await serverInit.dropStream(); // <- RUN FIRST ALONE
-// await serverInit.createOrderStream();
-// await serverInit.unpaidOrdersTable();
-// await serverInit.paidOrdersTable();
-// await serverInit.unusualActivities();
+  // await serverInit.dropStream(); // <- RUN FIRST ALONE
+  await serverInit.createOrderStream();
+  await serverInit.unpaidOrdersTable();
+  await serverInit.paidOrdersTable();
+  // await serverInit.unusualActivities();
 }
 
 runserverInit()
