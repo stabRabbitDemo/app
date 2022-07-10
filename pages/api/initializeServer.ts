@@ -1,8 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-const exec = require('child_process').exec;
+const serverInit = require('../../serverInit');
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    exec('docker-compose up');
+    await serverInit.dropStream();
+    // await serverInit.createOrderStream();
+    // await serverInit.unpaidOrdersTable();
+    // await serverInit.paidOrdersTable();
+    // await serverInit.unusualActivities();
+    return res.status(200).json('Initialized');
   };
 }

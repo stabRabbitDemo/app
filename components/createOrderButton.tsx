@@ -2,12 +2,15 @@ import { FC, ReactElement } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 
-const CreateOrderButton: FC = (): ReactElement => {
+const CreateOrderButton: FC<{refreshData: Boolean, setRefreshData: Function}> = ({refreshData, setRefreshData}): ReactElement => {
 
   const createOrder: Function = (): void => {
     fetch('/api/create')
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log('refreshdata: ', refreshData)
+        setRefreshData(!refreshData)
+      })
       .catch(error => console.log(error))
   };
 

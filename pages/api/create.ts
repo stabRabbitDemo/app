@@ -5,7 +5,7 @@ import {Data} from '../../types';
 const ksqldb = require('ksqldb-js');
 
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
@@ -16,8 +16,8 @@ export default function handler(
   console.log("fake data in createOrder:", data);
   try {
     // data has to be in the format of {"orderId":"1", "productName":"brush", "unitPrice": "20", "quantity": 1, "status": "sa"}
-    client.insertStream('ORDERS', data);
-
+    const response = await client.insertStream('ORDERS', [data]);
+    console.log(response);
     // client.push(
     //   'SELECT * FROM ORDERS EMIT CHANGES;',
     //   (result: Object) => { console.log(result) }
