@@ -27,12 +27,14 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
+    console.log("in useEffect in for unpaidTable api, the refresh data is: ", refreshData);
     fetch('/api/unpaidTable')
       .then(res => res.json())
       .then(data => {
         setUnpaidData(data)
         setIsLoading(false);
       })
+      .catch((err) => console.log(err));
   }, [refreshData]);
 
   useEffect(() => {
@@ -41,6 +43,7 @@ const Home: NextPage = () => {
       .then(data => {
         setPaidData(data)
       })
+      .catch((err) => console.log(err));
   }, [refreshData]);
 
   // useEffect(() => {
@@ -152,7 +155,7 @@ const Home: NextPage = () => {
           <Grid item xs={12} sx={{ mb: 1 }}>
             <Typography variant="h5">Bar Graph</Typography>
           </Grid>
-          <Box sx={{ minWidth: 275, m:2}}>
+          <Box sx={{ minWidth: 275, m: 2 }}>
             <Card variant="outlined">{card}</Card>
           </Box>
         </Grid>
