@@ -9,9 +9,10 @@ serverInit.dropStream = async () => {
     await client.ksql('DROP TABLE IF EXISTS unpaidOrdersTable;');
     await client.ksql('DROP TABLE IF EXISTS paidOrdersTable;');
     await client.ksql('DROP TABLE IF EXISTS unusualActivities;');
-    await client.ksql('DROP STREAM IF EXISTS ORDERS DELETE TOPIC;');
+    const response = await client.ksql('DROP STREAM IF EXISTS ORDERS DELETE TOPIC;');
+    return response;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -32,8 +33,9 @@ serverInit.createOrderStream = async () => {
         'json',
         1
       );
+      return result;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -56,12 +58,13 @@ serverInit.unpaidOrdersTable = async () => {
         partitions: '1'
       },
       {
-        WHERE: "LATEST_BY_OFFSET(status) = 'UNPAID'",
+        WHERE: "status = 'UNPAID'",
         GROUP_BY: 'orderId'
       }
     );
+    return data;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -95,8 +98,9 @@ serverInit.paidOrdersTable = async () => {
         GROUP_BY: 'orderId'
       }
     );
+    return data;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -127,8 +131,9 @@ serverInit.unusualActivities = async () => {
           GROUP_BY: 'orderId'
         }
       );
+      return data;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
