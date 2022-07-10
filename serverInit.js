@@ -93,7 +93,7 @@ serverInit.paidOrdersTable = async () => {
       },
       {
         // WHERE: `status = 'PAID'`,
-        HAVING: "LATEST_BY_OFFSET(status) = 'UNPAID'",
+        HAVING: "LATEST_BY_OFFSET(status) = 'PAID'",
         GROUP_BY: 'orderId'
       }
     );

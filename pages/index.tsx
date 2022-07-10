@@ -27,6 +27,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
+    console.log("in useEffect in for unpaidTable api, the refresh data is: ", refreshData);
     fetch('/api/unpaidTable')
       .then(res => res.json())
       .then(data => {
