@@ -27,15 +27,15 @@ const barChartOptions = {
         }
     },
     dataLabels: {
-        enabled: false
+        enabled: true
     },
     xaxis: {
-        categories: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        // categories: ['Stream', 'View', 'Clr', 'Sta'],
         axisBorder: {
-            show: false
+            show: true
         },
         axisTicks: {
-            show: false
+            show: true
         }
     },
     yaxis: {
@@ -58,7 +58,23 @@ const BarChart = () => {
 
     const [series] = useState([
         {
-            data: [80, 95, 70, 42, 65, 55, 78]
+            data: [{
+                x: 'Stream',
+                y: 80
+            },
+            {
+                x: 'View',
+                y: 42
+            },
+            {
+                x: 'Clr',
+                y: 67
+            },
+            {
+                x: 'Sta',
+                y: 34
+            },
+            ]
         }
     ]);
     // @ts-ignore

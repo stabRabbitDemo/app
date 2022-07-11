@@ -3,11 +3,13 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Sidebar from '../components/sidebar'
 import styles from '../styles/Home.module.css'
-import { Button, Grid, Typography, Stack, Card, LinearProgress, CardContent, CardActions, Box, CircularProgress, Backdrop } from '@mui/material';
+import { Avatar, Button, Grid, Typography, Stack, Card, LinearProgress, CardContent, CardActions, Box, CircularProgress, Backdrop } from '@mui/material';
 import TableDisplay from '../components/table';
 import BarChart from '../components/BarChart'
 import CssBaseline from '@mui/material/CssBaseline';
 import { styled } from '@mui/material/styles';
+import { SettingOutlined } from '@ant-design/icons';
+
 
 const Home: NextPage = () => {
 
@@ -59,26 +61,26 @@ const Home: NextPage = () => {
         <Typography variant="h5" component="div">
           Total orders
         </Typography>
-        <Typography sx={{ mb: 1 }} color="text.secondary">
-          1
+        <Typography sx={{ mb: 1 }} color="test.primary">
+          {unpaidData.length + paidData.length}
         </Typography>
         <Typography variant="h6" component="div">
           Paid orders
         </Typography>
-        <Typography sx={{ mb: 1 }} color="text.secondary">
-          1
+        <Typography sx={{ mb: 1 }} color="success.main">
+          {paidData.length}
         </Typography>
         <Typography variant="h6" component="div">
           Unpaid orders
         </Typography>
-        <Typography sx={{ mb: 1 }} color="text.secondary">
-          1
+        <Typography sx={{ mb: 1 }} color="primary.main">
+          {unpaidData.length}
         </Typography>
         <Typography variant="h6" component="div">
           Unusual activity
         </Typography>
-        <Typography sx={{ mb: 1 }} color="text.secondary">
-          1
+        <Typography sx={{ mb: 1 }} color="warning.main">
+          2
         </Typography>
         {/* <Typography variant="body2">
           well meaning and kindly.
@@ -120,6 +122,23 @@ const Home: NextPage = () => {
             {/* <StyledHeader variant="h5">Summary</StyledHeader> */}
             <Box sx={{ minWidth: 275, m: 2 }}>
               <Card variant="outlined">{summaryCard}</Card>
+            </Box>
+            <Box sx={{ p: 0.25, m: 1, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
+              <CardContent>
+                <Stack direction="row" justifyContent="space-evenly" alignItems={"center"}>
+                  <Avatar
+                    sx={{
+                      color: 'info.main',
+                      bgcolor: 'error.lighter'
+                    }}
+                  >
+                    <SettingOutlined />
+                  </Avatar>
+                  <Typography variant="h6" component="div">
+                    Server Status: {"Good"}
+                  </Typography>
+                </Stack>
+              </CardContent>
             </Box>
           </Grid>
           {/* row 2 table */}
