@@ -84,7 +84,7 @@ const BarChart = () => {
 
     return (
         <div id="chart">
-            <ApexCharts options={options} series={series} type="bar" height={365} />
+            <ApexCharts options={options} series={series} type="bar" height={250} />
         </div>
     );
 };

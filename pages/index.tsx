@@ -95,7 +95,7 @@ const Home: NextPage = () => {
   const StyledHeader = styled(Typography)({
     fontSize: "24px",
     fontWeight: "600",
-    padding: "5px"
+    padding: "10px"
 
   }) as typeof Typography
 
@@ -132,14 +132,14 @@ const Home: NextPage = () => {
                   color={'secondary'}
                   variant={'outlined'}
                 >
-                  Month
+                  PRICE
                 </Button>
                 <Button
                   size="small"
                   color={'primary'}
                   variant={'outlined'}
                 >
-                  Week
+                  QUANTITY
                 </Button>
               </Stack>
             </Stack>
@@ -148,13 +148,13 @@ const Home: NextPage = () => {
           {/* row 2 graph */}
 
           <Grid item xs={0} md={4} lg={3}>
-            <Box>
+            <Box sx={{ p: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
               <BarChart></BarChart>
             </Box>
           </Grid>
 
           {/* row 3 */}
-          <Grid item xs={12} md={7} lg={8}>
+          <Grid item xs={12} md={7} lg={8} sx={{ mb: 4 }}>
             <StyledHeader variant="h5">Unusual Activity</StyledHeader>
             <TableDisplay data={[[5, 'product5', 5, 23, 'UNPAID'], [6, 'product6', 6, 67, 'UNPAID']]} tableType="unusual" />
           </Grid>

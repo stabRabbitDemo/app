@@ -31,7 +31,7 @@ const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ksqlDB-JS Demo App" sx={{ fontSize: "20px", color: "teal" }} />
+      <ListItemText primary="ksqlDB-JS Demo App" primaryTypographyProps={{ fontSize: '20px', color: "teal" }} />
     </ListItemButton>
     {/* <ListItemButton>
       <ListItemIcon>

@@ -100,7 +100,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                                 tabIndex={-1}
                                 key={index}
                                 selected={isItemSelected}>
-                                <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
+                                <TableCell id="OrderIDCell" sx={{ color: 'gray' }} align="center">{row[0]}</TableCell>
                                 <TableCell id="ProductCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[1]}</TableCell>
                                 <TableCell id="unitPriceCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[2]}</TableCell>
                                 <TableCell id="quantityCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[3]}</TableCell>
@@ -136,7 +136,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                                 tabIndex={-1}
                                 key={index}
                                 selected={isItemSelected}>
-                                <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
+                                <TableCell id="OrderIDCell" sx={{ color: 'gray' }} align="center">{row[0]}</TableCell>
                                 <TableCell id="ProductCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[1]}</TableCell>
                                 <TableCell id="unitPriceCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[2]}</TableCell>
                                 <TableCell id="quantityCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[3]}</TableCell>
