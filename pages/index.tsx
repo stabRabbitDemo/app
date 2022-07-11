@@ -5,7 +5,9 @@ import Sidebar from '../components/sidebar'
 import styles from '../styles/Home.module.css'
 import { Button, Grid, Typography, Stack, Card, LinearProgress, CardContent, CardActions, Box, CircularProgress, Backdrop } from '@mui/material';
 import TableDisplay from '../components/table';
+import BarChart from '../components/BarChart'
 import CssBaseline from '@mui/material/CssBaseline';
+import { styled } from '@mui/material/styles';
 
 const Home: NextPage = () => {
 
@@ -60,26 +62,51 @@ const Home: NextPage = () => {
   const card = (
     <React.Fragment>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Word of the Day
-        </Typography>
+        </Typography> */}
         <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
+          Total orders
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+        <Typography sx={{ mb: 1 }} color="text.secondary">
+          1
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="h6" component="div">
+          Paid orders
+        </Typography>
+        <Typography sx={{ mb: 1 }} color="text.secondary">
+          1
+        </Typography>
+        <Typography variant="h6" component="div">
+          Unpaid orders
+        </Typography>
+        <Typography sx={{ mb: 1 }} color="text.secondary">
+          1
+        </Typography>
+        <Typography variant="h6" component="div">
+          Unusual activity
+        </Typography>
+        <Typography sx={{ mb: 1 }} color="text.secondary">
+          1
+        </Typography>
+        {/* <Typography variant="body2">
           well meaning and kindly.
           <br />
           {'"a benevolent smile"'}
-        </Typography>
+        </Typography> */}
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Button size="small">Learn More</Button>
-      </CardActions>
+      </CardActions> */}
     </React.Fragment>
   );
+
+  const StyledHeader = styled(Typography)({
+    fontSize: "24px",
+    fontWeight: "600",
+    padding: "5px"
+
+  }) as typeof Typography
 
   return (
     <div className={styles.container}>
@@ -90,70 +117,59 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Sidebar refreshData={refreshData} setRefreshData={setRefreshData} setIsLoading={setIsLoading} />
-      {/* <TableDisplay /> */}
       <main>
-        <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-          {/* row 1 */}
-          <Grid item xs={12} sx={{ mb: -1 }}>
-            <Typography variant="h5">Unpaid Orders</Typography>
-          </Grid>
-          <Grid item xs={12} sx={{ mb: 1 }}>
+        <Grid container spacing={2.75} sx={{ ml: 2 }}>
+          {/* row 1 table */}
+          <Grid item xs={12} md={7} lg={8} >
+            <StyledHeader variant="h5">Unpaid Orders</StyledHeader>
             <TableDisplay data={unpaidData} tableType="unpaid" />
           </Grid>
-          <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
-          {/* row 2 */}
-          <Grid item xs={12} md={7} lg={8}>
-            <Grid container alignItems="center" justifyContent="space-between">
-              <Grid item>
-                <Typography variant="h5">Paid Orders</Typography>
-              </Grid>
-              <Grid item>
-                <Stack direction="row" alignItems="center" spacing={0}>
-                  <Button
-                    size="small"
-                    color={'secondary'}
-                    variant={'outlined'}
-                  >
-                    Month
-                  </Button>
-                  <Button
-                    size="small"
-                    color={'primary'}
-                    variant={'outlined'}
-                  >
-                    Week
-                  </Button>
-                </Stack>
-              </Grid>
-              <Grid item xs={12} sx={{ mb: 1 }}>
-                <TableDisplay data={paidData} tableType="paid" />
-              </Grid>
-            </Grid>
+          {/* row 1 graph */}
+          <Grid item xs={0} md={4} lg={3}>
+            {/* <StyledHeader variant="h5">Summary</StyledHeader> */}
+            <Box sx={{ minWidth: 275, m: 2 }}>
+              <Card variant="outlined">{card}</Card>
+            </Box>
           </Grid>
+          {/* row 2 table */}
+          <Grid item xs={12} md={7} lg={8}>
+            <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
+              <StyledHeader variant="h5">Paid Orders</StyledHeader>
+              <Stack direction="row" alignItems="center" spacing={0}>
+                <Button
+                  size="small"
+                  color={'secondary'}
+                  variant={'outlined'}
+                >
+                  Month
+                </Button>
+                <Button
+                  size="small"
+                  color={'primary'}
+                  variant={'outlined'}
+                >
+                  Week
+                </Button>
+              </Stack>
+            </Stack>
+            <TableDisplay data={paidData} tableType="paid" />
+          </Grid>
+          {/* row 2 graph */}
+
+          <Grid item xs={0} md={4} lg={3}>
+            <BarChart></BarChart>
+          </Grid>
+
           {/* row 3 */}
           <Grid item xs={12} md={7} lg={8}>
-
-            <Grid item xs={12} sx={{ mb: -1 }}>
-              <Typography variant="h5">Unusual Activity</Typography>
-            </Grid>
-            <Grid item xs={12} sx={{ mb: 1 }}>
-              <TableDisplay data={[[5, 'product5', 5, 23, 'UNPAID'], [6, 'product6', 6, 67, 'UNPAID']]} tableType="unusual" />
-            </Grid>
-            <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
+            <StyledHeader variant="h5">Unusual Activity</StyledHeader>
+            <TableDisplay data={[[5, 'product5', 5, 23, 'UNPAID'], [6, 'product6', 6, 67, 'UNPAID']]} tableType="unusual" />
+          </Grid>
+          <Grid item xs={0} md={4} lg={3} sx={{ display: { sm: 'block', md: 'block', lg: 'block' } }}>
           </Grid>
         </Grid>
       </main>
       {/* chart */}
-      <div>
-        <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-          <Grid item xs={12} sx={{ mb: 1 }}>
-            <Typography variant="h5">Bar Graph</Typography>
-          </Grid>
-          <Box sx={{ minWidth: 275, m: 2 }}>
-            <Card variant="outlined">{card}</Card>
-          </Box>
-        </Grid>
-      </div>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
@@ -161,7 +177,7 @@ const Home: NextPage = () => {
         Starting Up Docker &nbsp;
         <CircularProgress color="inherit" />
       </Backdrop>
-    </div>
+    </div >
   )
 }
 

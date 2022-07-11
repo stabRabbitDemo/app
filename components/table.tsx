@@ -8,6 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button'
 import { Box, Stack, Typography } from '@mui/material';
 import Dot from './@extended/Dot';
+import { styled } from '@mui/material/styles';
+
 
 const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String }> = ({ data, tableType }): ReactElement => {
     // {"orderId":"1", "productName":"brush", "unitPrice": "20", "quantity": 1, "status": "?"}
@@ -39,28 +41,33 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
         );
     };
 
+    const ColumnHeader = styled(Typography)({
+        fontSize: "20px",
+        fontWeight: "500"
+    }) as typeof Typography
+
     const TableHeader: FC<{ type: String }> = ({ type }) => {
         if (type === 'unpaid') {
             return (
-                <TableRow>
-                    <TableCell>Order ID</TableCell>
-                    <TableCell>Product</TableCell>
-                    <TableCell>Unit Price</TableCell>
-                    <TableCell>Quantity</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Pay Order</TableCell>
-                    <TableCell>Clear Order</TableCell>
+                <TableRow sx={{ font: "Public Sans", fontWeight: "600" }}>
+                    <TableCell><ColumnHeader>Order ID</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Product</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Unit Price</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Quantity</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Status</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Pay</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Clear</ColumnHeader></TableCell>
                 </TableRow>
             )
         } else {
             return (
-                <TableRow>
-                    <TableCell>Order ID</TableCell>
-                    <TableCell>Product</TableCell>
-                    <TableCell>Unit Price</TableCell>
-                    <TableCell>Quantity</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Clear Order</TableCell>
+                <TableRow sx={{ font: "Public Sans", fontWeight: "600" }}>
+                    <TableCell><ColumnHeader>Order ID</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Product</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Unit Price</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Quantity</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Status</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Clear</ColumnHeader></TableCell>
                 </TableRow>
             )
         }
@@ -159,6 +166,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                     overflowX: 'auto',
                     position: 'relative',
                     display: 'block',
+                    border: "1px solid rgb(230, 235, 241)",
                     '& td, & th': { whiteSpace: 'nowrap' }
                 }}>
                 <Table

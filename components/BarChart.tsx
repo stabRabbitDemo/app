@@ -45,12 +45,12 @@ const barChartOptions = {
 // ==============================|| MONTHLY BAR CHART ||============================== //
 
 interface IReactApexChartOptions {
-  colors?: string[], 
-  xaxis?: {labels: {style: {colors: string[]}}},
-  tooltip:{theme:string},
+    colors?: string[],
+    xaxis?: { labels: { style: { colors: string[] } } },
+    tooltip: { theme: string },
 }
 
-const MonthlyBarChart = () => {
+const BarChart = () => {
     const theme = useTheme();
 
     const { primary, secondary } = theme.palette.text;
@@ -84,9 +84,9 @@ const MonthlyBarChart = () => {
 
     return (
         <div id="chart">
-            <ReactApexChart options:IReactApexChartOptions ={options} series={series} type="bar" height={365} />
+            <ReactApexChart options:IReactApexChartOptions={options} series={series} type="bar" height={365} />
         </div>
     );
 };
 
-export default MonthlyBarChart;
+export default BarChart;
