@@ -50,16 +50,7 @@ const Home: NextPage = () => {
   //     })
   // },[]);
 
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
-
-  const card = (
+  const summaryCard = (
     <React.Fragment>
       <CardContent>
         {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -128,7 +119,7 @@ const Home: NextPage = () => {
           <Grid item xs={0} md={4} lg={3}>
             {/* <StyledHeader variant="h5">Summary</StyledHeader> */}
             <Box sx={{ minWidth: 275, m: 2 }}>
-              <Card variant="outlined">{card}</Card>
+              <Card variant="outlined">{summaryCard}</Card>
             </Box>
           </Grid>
           {/* row 2 table */}
@@ -157,7 +148,9 @@ const Home: NextPage = () => {
           {/* row 2 graph */}
 
           <Grid item xs={0} md={4} lg={3}>
-            <BarChart></BarChart>
+            <Box>
+              <BarChart></BarChart>
+            </Box>
           </Grid>
 
           {/* row 3 */}

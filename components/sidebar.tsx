@@ -95,7 +95,9 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
         position: 'relative',
         whiteSpace: 'nowrap',
         width: drawerWidth,
-        height: '100%', // changed this from auto
+        height: 'auto', // changed this from auto
+        marginBottom: "-5000px", /* any large number will do */
+        paddingBottom: "5000px",
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.enteringScreen,

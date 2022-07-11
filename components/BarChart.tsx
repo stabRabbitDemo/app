@@ -4,16 +4,20 @@ import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 
 // third-party
-import ReactApexChart from 'react-apexcharts';
-import ReactApexChartOptions from 'react-apexcharts';
+// import ReactApexChart from 'react-apexcharts';
+import { IReactApexChartOptions } from '../types';
+import { ApexOptions } from "apexcharts";
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
+
 
 // chart options
 const barChartOptions = {
     chart: {
         type: 'bar',
-        height: 365,
+        height: 250,
         toolbar: {
-            show: false
+            show: true
         }
     },
     plotOptions: {
@@ -44,11 +48,7 @@ const barChartOptions = {
 
 // ==============================|| MONTHLY BAR CHART ||============================== //
 
-interface IReactApexChartOptions {
-    colors?: string[],
-    xaxis?: { labels: { style: { colors: string[] } } },
-    tooltip: { theme: string },
-}
+
 
 const BarChart = () => {
     const theme = useTheme();
@@ -61,30 +61,30 @@ const BarChart = () => {
             data: [80, 95, 70, 42, 65, 55, 78]
         }
     ]);
+    // @ts-ignore
+    const [options, setOptions] = useState<ApexOptions>(barChartOptions);
 
-    const [options, setOptions] = useState(barChartOptions);
-
-    // useEffect(() => {
-    //     setOptions((prevState: ReactApexChartOptions) => ({
-    //         ...prevState,
-    //         colors: [info],
-    //         xaxis: {
-    //             labels: {
-    //                 style: {
-    //                     colors: [secondary, secondary, secondary, secondary, secondary, secondary, secondary]
-    //                 }
-    //             }
-    //         },
-    //         tooltip: {
-    //             theme: 'light'
-    //         }
-    //     }));
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [primary, info, secondary]);
+    useEffect(() => {
+        setOptions((prevState) => ({
+            ...prevState,
+            colors: [info],
+            xaxis: {
+                labels: {
+                    style: {
+                        colors: [secondary, secondary, secondary, secondary, secondary, secondary, secondary]
+                    }
+                }
+            },
+            tooltip: {
+                theme: 'light'
+            }
+        }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [primary, info, secondary]);
 
     return (
         <div id="chart">
-            <ReactApexChart options:IReactApexChartOptions={options} series={series} type="bar" height={365} />
+            <ApexCharts options={options} series={series} type="bar" height={365} />
         </div>
     );
 };
