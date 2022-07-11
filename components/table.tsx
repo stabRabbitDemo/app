@@ -42,7 +42,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
     };
 
     const ColumnHeader = styled(Typography)({
-        fontSize: "20px",
+        fontSize: "19px",
         fontWeight: "500"
     }) as typeof Typography
 
@@ -74,6 +74,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
     }
 
     const RowsBody: FC<{ type: String, rowData: Array<Array<string | number>> }> = ({ type, rowData }): JSX.Element | null => {
+        let tableCellFontSize = "16px";
         if (type === 'unpaid') {
             return (
                 <TableBody>
@@ -100,10 +101,10 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                                 key={index}
                                 selected={isItemSelected}>
                                 <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
-                                <TableCell id="ProductCell" align="left">{row[1]}</TableCell>
-                                <TableCell id="unitPriceCell" align="left">{row[2]}</TableCell>
-                                <TableCell id="quantityCell" align="left">{row[3]}</TableCell>
-                                <TableCell id="statusCell" align="right">
+                                <TableCell id="ProductCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[1]}</TableCell>
+                                <TableCell id="unitPriceCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[2]}</TableCell>
+                                <TableCell id="quantityCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[3]}</TableCell>
+                                <TableCell id="statusCell" align="center">
                                     <OrderStatus status={row[4]} />
                                 </TableCell>
                                 <TableCell id="payButtonCell">
@@ -136,10 +137,10 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                                 key={index}
                                 selected={isItemSelected}>
                                 <TableCell id="OrderIDCell" sx={{ color: 'gray' }}>{row[0]}</TableCell>
-                                <TableCell id="ProductCell" align="left">{row[1]}</TableCell>
-                                <TableCell id="unitPriceCell" align="left">{row[2]}</TableCell>
-                                <TableCell id="quantityCell" align="left">{row[3]}</TableCell>
-                                <TableCell id="statusCell" align="right">
+                                <TableCell id="ProductCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[1]}</TableCell>
+                                <TableCell id="unitPriceCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[2]}</TableCell>
+                                <TableCell id="quantityCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[3]}</TableCell>
+                                <TableCell id="statusCell" align="center">
                                     <OrderStatus status={row[4]} />
                                 </TableCell>
                                 <TableCell id="clearButtonCell">

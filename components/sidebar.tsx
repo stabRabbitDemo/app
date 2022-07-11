@@ -31,7 +31,7 @@ const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ksqlDB-JS Demo App" sx={{ fontSize: 96, color: "teal" }} />
+      <ListItemText primary="ksqlDB-JS Demo App" sx={{ fontSize: "20px", color: "teal" }} />
     </ListItemButton>
     {/* <ListItemButton>
       <ListItemIcon>
@@ -130,8 +130,8 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
           {mainListItems}
           <Divider sx={{ my: 1 }} />
           <Fragment>
-            <ListSubheader sx={{ fontSize: 20 }} component="div" inset>
-              Stuff
+            <ListSubheader sx={{ fontSize: 20, justifyContent: "center" }} component="div" inset >
+              Menu
             </ListSubheader>
             <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               <List className={styles.sidebarButtonList}>
