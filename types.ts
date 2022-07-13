@@ -6,3 +6,12 @@ export interface Data {
   quantity: number;
   status: string;
 };
+
+export interface ClientResponse {
+  status: number;
+  statusText: string;
+  headers: Object;
+  data: Array<{
+    statementText: string;
+  }>;
+}

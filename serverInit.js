@@ -3,15 +3,25 @@ const client = new ksqldb({ ksqldbURL: 'http://localhost:8088' });
 
 const serverInit = {};
 
+serverInit.checkServerStatus = async () => {
+  try {
+    const response = await client.inspectServerHealth();
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //drop all tables/streams/topic
 serverInit.dropStream = async () => {
   try {
     await client.ksql('DROP TABLE IF EXISTS unpaidOrdersTable;');
     await client.ksql('DROP TABLE IF EXISTS paidOrdersTable;');
     await client.ksql('DROP TABLE IF EXISTS unusualActivities;');
-    await client.ksql('DROP STREAM IF EXISTS ORDERS DELETE TOPIC;');
+    const response = await client.ksql('DROP STREAM IF EXISTS ORDERS DELETE TOPIC;');
+    return response;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -32,8 +42,9 @@ serverInit.createOrderStream = async () => {
         'json',
         1
       );
+    return result;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -57,12 +68,13 @@ serverInit.unpaidOrdersTable = async () => {
       },
       {
         // WHERE: "status = 'UNPAID'",
-        HAVING: "LATEST_BY_OFFSET(status) = 'UNPAID'",
+        HAVING: `LATEST_BY_OFFSET(status) = 'UNPAID'`,
         GROUP_BY: 'orderId'
       }
     );
+    return data;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -97,8 +109,9 @@ serverInit.paidOrdersTable = async () => {
         GROUP_BY: 'orderId'
       }
     );
+    return data;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
@@ -129,19 +142,22 @@ serverInit.unusualActivities = async () => {
           GROUP_BY: 'orderId'
         }
       );
+    return data;
   } catch (error) {
-    console.log(error);
+    return error;
   };
 };
 
-const runserverInit = async () => {
-  // await serverInit.dropStream(); // <- RUN FIRST ALONE
-  await serverInit.createOrderStream();
-  await serverInit.unpaidOrdersTable();
-  await serverInit.paidOrdersTable();
-  // await serverInit.unusualActivities();
-}
+// const runserverInit = async () => {
+//   // await serverInit.dropStream(); // <- RUN FIRST ALONE
+//   await serverInit.createOrderStream();
+//   await serverInit.unpaidOrdersTable();
+//   await serverInit.paidOrdersTable();
+//   // await serverInit.unusualActivities();
+// }
 
-runserverInit()
+// runserverInit()
+
+serverInit.checkServerStatus();
 
 module.exports = serverInit;
