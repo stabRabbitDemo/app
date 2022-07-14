@@ -10,7 +10,9 @@ const PayOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = (
       .then(res => res.json())
       .then(data => {
         // console.log(data);
-        setRefreshData(!refreshData);
+        setTimeout(() => {
+          setRefreshData(!refreshData)
+        }, 200);
       })
       .catch(error => console.log(error))
   };
