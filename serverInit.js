@@ -116,18 +116,18 @@ serverInit.paidOrdersTable = async () => {
 };
 
 //create materialized view for unusual activities
-serverInit.unusualActivities = async () => {
+serverInit.archivedOrdersTable = async () => {
   try {
     const data = await client.createTableAs
       (
-        'unusualActivities',
+        'archiveTable',
         'ORDERS',
         [
-          'orderId',
-          'productName',
-          'unitPrice',
-          'quantity',
-          'status',
+          'orderId AS Order_ID',
+          'LATEST_BY_OFFSET(productName) AS Product_Name',
+          'LATEST_BY_OFFSET(unitPrice) AS Unit_Price',
+          'SUM(quantity) AS Quantity',
+          'LATEST_BY_OFFSET(status) AS Status',
           'count(*) AS attempts',
           'WINDOWSTART AS start_boundary',
           'WINDOWEND as end_boundary'
@@ -138,7 +138,7 @@ serverInit.unusualActivities = async () => {
           partitions: '1'
         },
         {
-          WHERE: `status = 'PAID'`,
+          HAVING: "LATEST_BY_OFFSET(status) = 'ARCHIVED'",
           GROUP_BY: 'orderId'
         }
       );
