@@ -43,13 +43,13 @@ const Home: NextPage = () => {
       .catch((err) => setPaidData([]));
   }, [refreshData]);
 
-  useEffect(() => {
-    fetch('/api/archiveTable')
-      .then(res => res.json())
-      .then(data => {
-        setArchiveData(data)
-      })
-  },[]);
+  // useEffect(() => {
+  //   fetch('/api/archiveTable')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setArchiveData(data)
+  //     })
+  // },[refreshData]);
 
   const summaryCard = (
     <React.Fragment>
@@ -174,7 +174,7 @@ const Home: NextPage = () => {
           {/* row 3 */}
           <Grid item xs={12} md={7} lg={8} sx={{ mb: 4 }}>
             <StyledHeader variant="h5">Archived Orders</StyledHeader>
-            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={archiveData} tableType="archive" />
+            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={paidData} tableType="archive" />
           </Grid>
           <Grid item xs={0} md={4} lg={3} sx={{ display: { sm: 'block', md: 'block', lg: 'block' } }}>
           </Grid>
