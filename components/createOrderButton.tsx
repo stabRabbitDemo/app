@@ -8,7 +8,7 @@ const CreateOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> 
     fetch('/api/create')
       .then(res => res.json())
       .then(data => {
-        console.log('refreshdata: ', refreshData)
+        // console.log('refreshdata: ', refreshData)
         // setRefreshData(!refreshData)
         setTimeout(() => {
           setRefreshData(!refreshData)
