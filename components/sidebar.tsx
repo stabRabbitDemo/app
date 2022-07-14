@@ -31,7 +31,7 @@ const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ksqlDB-JS Demo App" sx={{ fontSize: 64, color: "teal" }} />
+      <ListItemText primary="ksqlDB-JS Demo App" primaryTypographyProps={{ fontSize: '20px', color: "teal" }} />
     </ListItemButton>
     {/* <ListItemButton>
       <ListItemIcon>
@@ -87,7 +87,7 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
     setOpen(!open);
   };
 
-  const drawerWidth: number = 360;
+  const drawerWidth: number = 340;
 
   const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -95,7 +95,9 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
         position: 'relative',
         whiteSpace: 'nowrap',
         width: drawerWidth,
-        height: 'auto',
+        height: 'auto', // changed this from auto
+        marginBottom: "-5000px", /* any large number will do */
+        paddingBottom: "5000px",
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.enteringScreen,
@@ -128,8 +130,8 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
           {mainListItems}
           <Divider sx={{ my: 1 }} />
           <Fragment>
-            <ListSubheader sx={{ fontSize: 20 }} component="div" inset>
-              Stuff
+            <ListSubheader sx={{ fontSize: 20, justifyContent: "center" }} component="div" inset >
+              Menu
             </ListSubheader>
             <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               <List className={styles.sidebarButtonList}>
@@ -137,15 +139,15 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
                   <CreateOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
                 </ListItem>
                 <ListItem>
-                  <PayOrderButton />
+                  <PayOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
                 </ListItem>
                 <ListItem>
-                  <ClearOrderButton />
+                  <ClearOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
                 </ListItem>
               </List>
               <List>
                 <ListItem>
-                  <StartServerButton setIsLoading={setIsLoading} />
+                  <StartServerButton setIsLoading={setIsLoading} refreshData={refreshData} setRefreshData={setRefreshData} />
                 </ListItem>
               </List>
             </Box>

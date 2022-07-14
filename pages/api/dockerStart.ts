@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   let execResponse, inspectStatus;
   if (req.method === 'POST') {
     exec('docker-compose up');
-    while (!isRunning || tries === 5) {
+    while (!isRunning || tries === 10) {
       await sleep(3000);
       execResponse = exec('docker container inspect ksqldb-server', (error: string, stdout: string, stderr: string) => {
         if (error) console.log(error);
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
       tries++;
     };
-    if (tries === 5) return res.status(200).json({ isRunning });
+    if (tries === 10) return res.status(200).json({ isRunning });
     return res.status(200).json({ isRunning });
   }
 }

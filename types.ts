@@ -1,3 +1,4 @@
+import { ApexOptions } from "apexcharts";
 
 export interface Data {
   orderId: string;
@@ -5,7 +6,7 @@ export interface Data {
   unitPrice: string;
   quantity: number;
   status: string;
-};
+}
 
 export interface ClientResponse {
   status: number;
@@ -14,4 +15,49 @@ export interface ClientResponse {
   data: Array<{
     statementText: string;
   }>;
+}
+
+export interface IReactApexChartOptions {
+  chart: {
+    type?: any;
+    series?: ApexOptions["series"];
+    width?: string | number;
+    height?: string | number;
+    options?: ApexOptions;
+    [key: string]: any;
+    //   toolbar: {
+    //     show: boolean;
+    //   };
+    // };
+    // plotOptions: {
+    //   bar: {
+    //     columnWidth: string;
+    //     borderRadius: number;
+    //   };
+    // };
+    // dataLabels: {
+    //   enabled: boolean;
+    // };
+    // colors?: string[];
+    // xaxis?: {
+    //   categories?: string[];
+    //   axisBorder?: {
+    //     show: boolean;
+    //   };
+    //   axisTicks?: {
+    //     show: boolean;
+    //   };
+    //   labels?: {
+    //     style: {
+    //       colors: string[];
+    //     };
+    //   };
+    // };
+    // yaxis: {
+    //   show: boolean;
+    // };
+    // grid: {
+    //   show: boolean;
+  };
+  // tooltip?: { theme: string };
 }
