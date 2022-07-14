@@ -8,11 +8,11 @@ const CreateOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> 
     fetch('/api/create')
       .then(res => res.json())
       .then(data => {
-        console.log('refreshdata: ', refreshData)
-        setRefreshData(!refreshData)
-        // setTimeout(() => {
-
-        // }, 5000);
+        // console.log('refreshdata: ', refreshData)
+        // setRefreshData(!refreshData)
+        setTimeout(() => {
+          setRefreshData(!refreshData)
+        }, 100);
       })
       .catch(error => console.log(error))
   };

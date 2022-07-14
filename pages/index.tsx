@@ -26,13 +26,12 @@ const Home: NextPage = () => {
   // useEffect to pull in data and update state
 
   useEffect(() => {
-    console.log("in useEffect in for unpaidTable api, the refresh data is: ", refreshData);
     fetch('/api/unpaidTable')
       .then(res => res.json())
       .then(data => {
         setUnpaidData(data)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setUnpaidData([]));
   }, [refreshData]);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Home: NextPage = () => {
       .then(data => {
         setPaidData(data)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setPaidData([]));
   }, [refreshData]);
 
   // useEffect(() => {
@@ -115,7 +114,7 @@ const Home: NextPage = () => {
           {/* row 1 table */}
           <Grid item xs={12} md={7} lg={8} >
             <StyledHeader variant="h5">Unpaid Orders</StyledHeader>
-            <TableDisplay data={unpaidData} tableType="unpaid" />
+            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={unpaidData} tableType="unpaid" />
           </Grid>
           {/* row 1 graph */}
           <Grid item xs={0} md={4} lg={3}>
@@ -162,7 +161,7 @@ const Home: NextPage = () => {
                 </Button>
               </Stack>
             </Stack>
-            <TableDisplay data={paidData} tableType="paid" />
+            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={paidData} tableType="paid" />
           </Grid>
           {/* row 2 graph */}
 
@@ -175,7 +174,7 @@ const Home: NextPage = () => {
           {/* row 3 */}
           <Grid item xs={12} md={7} lg={8} sx={{ mb: 4 }}>
             <StyledHeader variant="h5">Unusual Activity</StyledHeader>
-            <TableDisplay data={[[5, 'product5', 5, 23, 'UNPAID'], [6, 'product6', 6, 67, 'UNPAID']]} tableType="unusual" />
+            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={[[5, 'product5', 5, 23, 'UNPAID'], [6, 'product6', 6, 67, 'UNPAID']]} tableType="unusual" />
           </Grid>
           <Grid item xs={0} md={4} lg={3} sx={{ display: { sm: 'block', md: 'block', lg: 'block' } }}>
           </Grid>
