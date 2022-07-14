@@ -3,14 +3,15 @@ import fakeData from "../../fakeData";
 import { Data } from "../../types";
 const ksqldb = require("ksqldb-js");
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   const client = new ksqldb({ ksqldbURL: "http://localhost:8088" });
   let data;
   try {
-    const rawData = client.pull("SELECT * FROM paidOrdersTable");
+    const rawData = await client.pull("SELECT * FROM unpaidOrdersTable;");
+    // console.log("rawData obtained from the unpaidOrdersTable is: ", rawData);
     const insertData = [];
     // each data in insertStream has to be in the format of {"orderId":"1", "productName":"brush", "unitPrice": "20", "quantity": 1, "status": "sa"}
 
