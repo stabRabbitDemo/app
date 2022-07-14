@@ -81,82 +81,83 @@ const mainListItems = (
 //   </Fragment>
 // );
 
-const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading: Function }> = ({ refreshData, setRefreshData, setIsLoading }): ReactElement => {
-  const [open, setOpen] = useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading: Function, paidData: (string | number)[][] }> =
+  ({ refreshData, setRefreshData, setIsLoading, paidData }): ReactElement => {
+    const [open, setOpen] = useState(true);
+    const toggleDrawer = () => {
+      setOpen(!open);
+    };
 
-  const drawerWidth: number = 340;
+    const drawerWidth: number = 340;
 
-  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      '& .MuiDrawer-paper': {
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        height: 'auto', // changed this from auto
-        marginBottom: "-5000px", /* any large number will do */
-        paddingBottom: "5000px",
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        boxSizing: 'border-box',
-        ...(!open && {
-          overflowX: 'hidden',
+    const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+      ({ theme, open }) => ({
+        '& .MuiDrawer-paper': {
+          position: 'relative',
+          whiteSpace: 'nowrap',
+          width: drawerWidth,
+          height: 'auto', // changed this from auto
+          marginBottom: "-5000px", /* any large number will do */
+          paddingBottom: "5000px",
           transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+            duration: theme.transitions.duration.enteringScreen,
           }),
-          width: theme.spacing(7),
-          [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-          },
-        }),
-      },
-    }),
-  );
+          boxSizing: 'border-box',
+          ...(!open && {
+            overflowX: 'hidden',
+            transition: theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
+            }),
+            width: theme.spacing(7),
+            [theme.breakpoints.up('sm')]: {
+              width: theme.spacing(9),
+            },
+          }),
+        },
+      }),
+    );
 
-  return (
-    <div className={styles.sidebar}>
-      <CssBaseline />
-      <Drawer
-        variant="permanent"
-        open={open}
-      >
-        <Divider />
-        <List component="nav">
-          {mainListItems}
-          <Divider sx={{ my: 1 }} />
-          <Fragment>
-            <ListSubheader sx={{ fontSize: 20, justifyContent: "center" }} component="div" inset >
-              Menu
-            </ListSubheader>
-            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <List className={styles.sidebarButtonList}>
-                <ListItem>
-                  <CreateOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
-                </ListItem>
-                <ListItem>
-                  <PayOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
-                </ListItem>
-                <ListItem>
-                  <ClearOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
-                </ListItem>
-              </List>
-              <List>
-                <ListItem>
-                  <StartServerButton setIsLoading={setIsLoading} refreshData={refreshData} setRefreshData={setRefreshData} />
-                </ListItem>
-              </List>
-            </Box>
-          </Fragment>
-        </List>
-      </Drawer >
+    return (
+      <div className={styles.sidebar}>
+        <CssBaseline />
+        <Drawer
+          variant="permanent"
+          open={open}
+        >
+          <Divider />
+          <List component="nav">
+            {mainListItems}
+            <Divider sx={{ my: 1 }} />
+            <Fragment>
+              <ListSubheader sx={{ fontSize: 20, justifyContent: "center" }} component="div" inset >
+                Menu
+              </ListSubheader>
+              <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <List className={styles.sidebarButtonList}>
+                  <ListItem>
+                    <CreateOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                  </ListItem>
+                  <ListItem>
+                    <PayOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                  </ListItem>
+                  <ListItem>
+                    <ClearOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                  </ListItem>
+                </List>
+                <List>
+                  <ListItem>
+                    <StartServerButton setIsLoading={setIsLoading} refreshData={refreshData} setRefreshData={setRefreshData} />
+                  </ListItem>
+                </List>
+              </Box>
+            </Fragment>
+          </List>
+        </Drawer >
 
-    </div >
-  )
-}
+      </div >
+    )
+  }
 
 export default Sidebar;
