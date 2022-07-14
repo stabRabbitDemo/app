@@ -119,7 +119,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                                     <Button
                                         variant="outlined"
                                         color="success"
-                                        onClick={() => updateOrder()}
+                                        onClick={() => updateOrder("pay")}
                                     >Pay</Button>
                                 </TableCell>
                                 <TableCell id="clearButtonCell">
