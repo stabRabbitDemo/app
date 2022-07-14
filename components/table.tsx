@@ -11,7 +11,7 @@ import Dot from './@extended/Dot';
 import { styled } from '@mui/material/styles';
 
 
-const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String }> = ({ data, tableType }): ReactElement => {
+const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String, refreshData: Boolean, setRefreshData: Function}> = ({ data, tableType, refreshData, setRefreshData }): ReactElement => {
     // {"orderId":"1", "productName":"brush", "unitPrice": "20", "quantity": 1, "status": "?"}
     // ==============================|| ORDER TABLE - STATUS ||============================== //
 
@@ -56,7 +56,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                     <TableCell><ColumnHeader>Quantity</ColumnHeader></TableCell>
                     <TableCell><ColumnHeader>Status</ColumnHeader></TableCell>
                     <TableCell><ColumnHeader>Pay</ColumnHeader></TableCell>
-                    <TableCell><ColumnHeader>Clear</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Archive</ColumnHeader></TableCell>
                 </TableRow>
             )
         } else {
@@ -67,7 +67,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                     <TableCell><ColumnHeader>Unit Price</ColumnHeader></TableCell>
                     <TableCell><ColumnHeader>Quantity</ColumnHeader></TableCell>
                     <TableCell><ColumnHeader>Status</ColumnHeader></TableCell>
-                    <TableCell><ColumnHeader>Clear</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Archive</ColumnHeader></TableCell>
                 </TableRow>
             )
         }
@@ -82,13 +82,21 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                         const isItemSelected: boolean = index % 2 === 0;
 
                         // method to insert new row with updated status value
-                        const updateOrder: Function = (): void => {
+                        const updateOrder: Function = (update: String): void => {
+                          if (update === 'pay'){  
                             fetch('/api/payone', {
                                 body: JSON.stringify(row),
                                 method: 'POST'
                             })
                                 .then(res => res.json())
-                                .then(data => console.log(data))
+                                .then(data => {
+                                  setTimeout(() => {
+                                    setRefreshData(!refreshData)
+                                  }, 100);
+
+                                })
+                                .catch(error => console.log(error))
+                            }
                         }
 
                         return (
@@ -144,7 +152,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String 
                                     <OrderStatus status={row[4]} />
                                 </TableCell>
                                 <TableCell id="clearButtonCell">
-                                    <Button variant="outlined">Clear</Button>
+                                    <Button variant="outlined">Archive</Button>
                                 </TableCell>
                             </TableRow>)
                     }) : null}
