@@ -22,19 +22,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log(error);
       }
     };
-    isRunning = false;
     let response;
-    while (!isRunning) {
-      try {
-        response = await serverInit.dropStream();
-        if (response !== undefined) {
-          console.log(response);
-          isRunning = true;
-        }
-      } catch (error) {
-        console.log(error);
-      };
+    try {
+      response = await serverInit.dropStream();
+    } catch (error) {
+      console.log(error);
     };
+
     if (response.commandStatus.status === 'SUCCESS') {
       const streamStatus: ClientResponse = await serverInit.createOrderStream();
       const unpaidTableStatus: ClientResponse = await serverInit.unpaidOrdersTable();
