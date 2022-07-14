@@ -10,20 +10,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     let isRunning = false;
     let serverHealth;
-    
-    while(!isRunning){
+
+    while (!isRunning) {
       await sleep(5000);
-      serverHealth = await serverInit.checkServerStatus();
-      if (serverHealth.status === 200) isRunning = true;
+      try {
+        serverHealth = await serverInit.checkServerStatus();
+        if (serverHealth.status !== undefined) {
+          if (serverHealth.data.isHealthy === true) isRunning = true;
+        };
+      } catch (error) {
+        console.log(error);
+      }
     };
-    
-    const response = await serverInit.dropStream();
+    let response;
+    try {
+      response = await serverInit.dropStream();
+    } catch (error) {
+      console.log(error);
+    };
+
     if (response.commandStatus.status === 'SUCCESS') {
       const streamStatus: ClientResponse = await serverInit.createOrderStream();
       const unpaidTableStatus: ClientResponse = await serverInit.unpaidOrdersTable();
       const paidTableStatus: ClientResponse = await serverInit.paidOrdersTable();
-
-      if (streamStatus.status === 200 && unpaidTableStatus.status === 200 && paidTableStatus.status === 200) return res.status(200).json({status: 200});
+      if (streamStatus.status === 200 && unpaidTableStatus.status === 200 && paidTableStatus.status === 200) return res.status(200).json({ status: 200 });
     }
     return res.status(200).json('Unsuccessful');
   };
