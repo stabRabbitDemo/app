@@ -81,8 +81,8 @@ const mainListItems = (
 //   </Fragment>
 // );
 
-const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading: Function, paidData: (string | number)[][] }> =
-  ({ refreshData, setRefreshData, setIsLoading, paidData }): ReactElement => {
+const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading: Function, paidData: (string | number)[][], setServerStatus: Function }> =
+  ({ refreshData, setRefreshData, setIsLoading, paidData, setServerStatus }): ReactElement => {
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
       setOpen(!open);
@@ -148,7 +148,7 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
                 </List>
                 <List>
                   <ListItem>
-                    <StartServerButton setIsLoading={setIsLoading} refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <StartServerButton setIsLoading={setIsLoading} refreshData={refreshData} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
                   </ListItem>
                 </List>
               </Box>
