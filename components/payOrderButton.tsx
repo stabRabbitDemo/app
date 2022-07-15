@@ -8,7 +8,12 @@ const PayOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = (
   const payOrder: Function = (): void => {
     fetch('/api/pay')
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        // console.log(data);
+        setTimeout(() => {
+          setRefreshData(!refreshData)
+        }, 200);
+      })
       .catch(error => console.log(error))
   };
 
@@ -18,8 +23,8 @@ const PayOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = (
       variant="contained"
       color="success"
       sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
-      onClick={() => console.log('pay order button clicked')}
-    ><PaymentIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} /> Pay Order</Button>
+      onClick={() => payOrder()}
+    ><PaymentIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} /> Pay All Orders</Button>
   )
 }
 
