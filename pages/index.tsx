@@ -45,6 +45,20 @@ const Home: NextPage = () => {
       .catch((err) => setPaidData([]));
   }, [refreshData]);
 
+  useEffect(() => {
+    fetch('/api/serverStatus')
+      .then(res => res.json())
+      .then(data => {
+        console.log("data returned from serverStatus in useEffect is: ", data);
+        if (data === true) {
+          setServerStatus("Good");
+        } else {
+          setServerStatus("Down");
+        }
+      })
+      .catch((err) => setServerStatus("Down"));
+  }, [refreshData]);
+
   // useEffect(() => {
   //   fetch('/api/unusualTable')
   //     .then(res => res.json())
@@ -124,7 +138,7 @@ const Home: NextPage = () => {
             <Box sx={{ minWidth: 275, m: 2 }}>
               <Card variant="outlined">{summaryCard}</Card>
             </Box>
-            <Box sx={{ p: 0.25, m: 1, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
+            <Box sx={{ p: 0.25, m: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
               <CardContent>
                 <Stack direction="row" justifyContent="space-evenly" alignItems={"center"}>
                   {/* <Avatar
@@ -169,7 +183,7 @@ const Home: NextPage = () => {
           {/* row 2 graph */}
 
           <Grid item xs={0} md={4} lg={3}>
-            <Box sx={{ p: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
+            <Box sx={{ p: 2, m: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
               <BarChart></BarChart>
             </Box>
           </Grid>

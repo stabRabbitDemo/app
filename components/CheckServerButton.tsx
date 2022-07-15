@@ -14,6 +14,8 @@ const CheckServerButton: FC<{ refreshData: Boolean, setRefreshData: Function, se
         }, 100);
         if (data === true) {
           setServerStatus("Good");
+        } else {
+          setServerStatus("Down");
         }
       })
       .catch(error => console.log(error))
@@ -23,6 +25,7 @@ const CheckServerButton: FC<{ refreshData: Boolean, setRefreshData: Function, se
     <IconButton
       aria-label="refresh"
       color="primary"
+      sx={{ bgcolor: "#E8E8E8" }}
       onClick={() => checkServerStatus()}
     >
       <RefreshIcon />

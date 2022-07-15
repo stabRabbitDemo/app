@@ -17,8 +17,10 @@ const StartServerButton: FC<{ setIsLoading: Function, refreshData: Boolean, setR
               .then(data => {
                 setIsLoading(false);
                 setRefreshData(!refreshData);
-                if (data !== "Unsuccessful") {
-                  setServerStatus('Good');
+                if (data === "Unsuccessful") {
+                  setServerStatus('Down');
+                } else {
+                  setServerStatus("Good");
                 }
               })
               .catch(error => console.log(error))
