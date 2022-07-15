@@ -17,7 +17,7 @@ serverInit.dropStream = async () => {
   try {
     await client.ksql('DROP TABLE IF EXISTS unpaidOrdersTable;');
     await client.ksql('DROP TABLE IF EXISTS paidOrdersTable;');
-    await client.ksql('DROP TABLE IF EXISTS unusualActivities;');
+    await client.ksql('DROP TABLE IF EXISTS archiveTable;');
     const response = await client.ksql('DROP STREAM IF EXISTS ORDERS DELETE TOPIC;');
     return response;
   } catch (error) {
@@ -128,9 +128,6 @@ serverInit.archivedOrdersTable = async () => {
           'LATEST_BY_OFFSET(unitPrice) AS Unit_Price',
           'SUM(quantity) AS Quantity',
           'LATEST_BY_OFFSET(status) AS Status',
-          'count(*) AS attempts',
-          'WINDOWSTART AS start_boundary',
-          'WINDOWEND as end_boundary'
         ],
         {
           topic: 'orderTopic',

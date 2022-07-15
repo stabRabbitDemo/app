@@ -206,9 +206,6 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                                 <TableCell id="ProductCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[1]}</TableCell>
                                 <TableCell id="unitPriceCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[2]}</TableCell>
                                 <TableCell id="quantityCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[3]}</TableCell>
-                                <TableCell id="statusCell" align="center">
-                                    <OrderStatus status={row[4]} />
-                                </TableCell>
                             </TableRow>)
                     }) : null}
                 </TableBody>
