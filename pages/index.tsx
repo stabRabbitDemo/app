@@ -127,15 +127,15 @@ const Home: NextPage = () => {
       </Head>
       <Sidebar refreshData={refreshData} setRefreshData={setRefreshData} setIsLoading={setIsLoading} paidData={paidData} setServerStatus={setServerStatus} />
       <main>
-        <Grid container spacing={2.75} sx={{ ml: 2 }}>
+        <Grid container spacing={2.75} sx={{ ml: 2, mb: 3 }}>
 
           <Grid container item columnSpacing={2.75} xs={12} md={7} lg={8}>
             {/* column 1 */}
-            <Grid item xs={12} md={12} lg={12} sx={{ mb: 2.75 }}>
+            <Grid item xs={12} md={12} lg={12} sx={{ mb: 3.5 }}>
               <StyledHeader variant="h5">Unpaid Orders</StyledHeader>
               <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={unpaidData} tableType="unpaid" />
             </Grid>
-            <Grid item xs={12} md={12} lg={12} sx={{ mb: 2.75 }}>
+            <Grid item xs={12} md={12} lg={12} sx={{ mb: 3.5 }}>
               <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
                 <StyledHeader variant="h5">Paid Orders</StyledHeader>
                 <Stack direction="row" alignItems="center" spacing={0}>
