@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+
 interface PaletteColor {
   light?: string;
   main: string;
@@ -29,3 +30,5 @@ const theme = createTheme({
     tonalOffset: 0.2,
   },
 });
+
+export default theme;
