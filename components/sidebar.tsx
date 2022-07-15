@@ -23,6 +23,7 @@ import StartServerButton from './startServerButton';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import reactSyntaxHighlighter from 'react-syntax-highlighter';
+import SimulateButton from './simulate';
 
 
 const mainListItems = (
@@ -144,6 +145,9 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
                   </ListItem>
                   <ListItem>
                     <ClearOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                  </ListItem>
+                  <ListItem>
+                    <SimulateButton refreshData={refreshData} setRefreshData={setRefreshData} />
                   </ListItem>
                 </List>
                 <List>

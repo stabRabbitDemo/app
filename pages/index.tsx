@@ -17,10 +17,7 @@ const Home: NextPage = () => {
   const [unpaidData, setUnpaidData] = useState([]);
   const [paidData, setPaidData] = useState([]);
   // const [unusualData, setUnusualData] = useState([]);
-
-  //setLoading for tables test - javan
   const [isLoading, setIsLoading] = useState(false);
-
   const [refreshData, setRefreshData] = useState(true);
 
   // useEffect to pull in data and update state
@@ -114,7 +111,7 @@ const Home: NextPage = () => {
           {/* row 1 table */}
           <Grid item xs={12} md={7} lg={8} >
             <StyledHeader variant="h5">Unpaid Orders</StyledHeader>
-            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={unpaidData} tableType="unpaid" />
+            <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={unpaidData} tableType="unpaid" />
           </Grid>
           {/* row 1 graph */}
           <Grid item xs={0} md={4} lg={3}>
@@ -161,7 +158,7 @@ const Home: NextPage = () => {
                 </Button>
               </Stack>
             </Stack>
-            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={paidData} tableType="paid" />
+            <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={paidData} tableType="paid" />
           </Grid>
           {/* row 2 graph */}
 
@@ -174,7 +171,7 @@ const Home: NextPage = () => {
           {/* row 3 */}
           <Grid item xs={12} md={7} lg={8} sx={{ mb: 4 }}>
             <StyledHeader variant="h5">Unusual Activity</StyledHeader>
-            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={[[5, 'product5', 5, 23, 'UNPAID'], [6, 'product6', 6, 67, 'UNPAID']]} tableType="unusual" />
+            <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={[[5, 'product5', 5, 23, 'UNPAID'], [6, 'product6', 6, 67, 'UNPAID']]} tableType="unusual" />
           </Grid>
           <Grid item xs={0} md={4} lg={3} sx={{ display: { sm: 'block', md: 'block', lg: 'block' } }}>
           </Grid>
