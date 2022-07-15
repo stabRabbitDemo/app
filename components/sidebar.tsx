@@ -147,7 +147,7 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
                     <ClearOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <SimulateButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <SimulateButton setRefreshData={setRefreshData} />
                   </ListItem>
                 </List>
                 <List>
