@@ -33,7 +33,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const streamStatus: ClientResponse = await serverInit.createOrderStream();
       const unpaidTableStatus: ClientResponse = await serverInit.unpaidOrdersTable();
       const paidTableStatus: ClientResponse = await serverInit.paidOrdersTable();
-      if (streamStatus.status === 200 && unpaidTableStatus.status === 200 && paidTableStatus.status === 200) return res.status(200).json({ status: 200 });
+      const archiveTableStatus: ClientResponse = await serverInit.archivedOrdersTable();
+      if (streamStatus.status === 200 && unpaidTableStatus.status === 200 && paidTableStatus.status === 200 && archiveTableStatus.status === 200) return res.status(200).json({ status: 200 });
     }
     return res.status(200).json('Unsuccessful');
   };

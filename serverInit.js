@@ -17,7 +17,7 @@ serverInit.dropStream = async () => {
   try {
     await client.ksql('DROP TABLE IF EXISTS unpaidOrdersTable;');
     await client.ksql('DROP TABLE IF EXISTS paidOrdersTable;');
-    await client.ksql('DROP TABLE IF EXISTS unusualActivities;');
+    await client.ksql('DROP TABLE IF EXISTS archiveTable;');
     const response = await client.ksql('DROP STREAM IF EXISTS ORDERS DELETE TOPIC;');
     return response;
   } catch (error) {
@@ -116,21 +116,18 @@ serverInit.paidOrdersTable = async () => {
 };
 
 //create materialized view for unusual activities
-serverInit.unusualActivities = async () => {
+serverInit.archivedOrdersTable = async () => {
   try {
     const data = await client.createTableAs
       (
-        'unusualActivities',
+        'archiveTable',
         'ORDERS',
         [
-          'orderId',
-          'productName',
-          'unitPrice',
-          'quantity',
-          'status',
-          'count(*) AS attempts',
-          'WINDOWSTART AS start_boundary',
-          'WINDOWEND as end_boundary'
+          'orderId AS Order_ID',
+          'LATEST_BY_OFFSET(productName) AS Product_Name',
+          'LATEST_BY_OFFSET(unitPrice) AS Unit_Price',
+          'SUM(quantity) AS Quantity',
+          'LATEST_BY_OFFSET(status) AS Status',
         ],
         {
           topic: 'orderTopic',
@@ -138,7 +135,7 @@ serverInit.unusualActivities = async () => {
           partitions: '1'
         },
         {
-          WHERE: `status = 'PAID'`,
+          HAVING: "LATEST_BY_OFFSET(status) = 'ARCHIVED'",
           GROUP_BY: 'orderId'
         }
       );
