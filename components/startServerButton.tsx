@@ -2,8 +2,8 @@ import { FC, ReactElement } from 'react';
 import DnsIcon from '@mui/icons-material/Dns';
 import Button from '@mui/material/Button';
 
-const StartServerButton: FC<{ setIsLoading: Function, refreshData: Boolean, setRefreshData: Function, setServerStatus: Function }> =
-  ({ setIsLoading, refreshData, setRefreshData, setServerStatus }): ReactElement => {
+const StartServerButton: FC<{ setIsLoading: Function, setRefreshData: Function, setServerStatus: Function }> =
+  ({ setIsLoading, setRefreshData, setServerStatus }): ReactElement => {
 
     const startServer: Function = (): void => {
       setIsLoading(true);
@@ -16,7 +16,7 @@ const StartServerButton: FC<{ setIsLoading: Function, refreshData: Boolean, setR
               .then(res => res.json())
               .then(data => {
                 setIsLoading(false);
-                setRefreshData(!refreshData);
+                setRefreshData(Math.random());
                 if (data === "Unsuccessful") {
                   setServerStatus('Down');
                 } else {

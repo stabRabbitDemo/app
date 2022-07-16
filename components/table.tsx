@@ -216,7 +216,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
 
     return (
         <Box sx={{
-            backgroundColor: "white",
+            backgroundColor: "#f5f5f5",
             borderRadius: '8px',
             border: "1px",
             borderColor: "gray",
@@ -224,6 +224,8 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
             <TableContainer
                 sx={{
                     overflowX: 'auto',
+                    overflowY: 'scroll',
+                    height: '27vh',
                     position: 'relative',
                     display: 'block',
                     border: "1px solid rgb(230, 235, 241)",

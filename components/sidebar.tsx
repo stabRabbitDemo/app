@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, Fragment, useState, ReactEventHandler } from 'react';
+import React, { FC, ReactElement, Fragment, useState, memo } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -23,6 +23,7 @@ import StartServerButton from './startServerButton';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import reactSyntaxHighlighter from 'react-syntax-highlighter';
+import SimulateButton from './simulate';
 
 
 const mainListItems = (
@@ -81,13 +82,13 @@ const mainListItems = (
 //   </Fragment>
 // );
 
-const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading: Function, paidData: (string | number)[][], setServerStatus: Function }> =
-  ({ refreshData, setRefreshData, setIsLoading, paidData, setServerStatus }): ReactElement => {
+const Sidebar: FC<{ setRefreshData: Function, setIsLoading: Function, setServerStatus: Function }> =
+  memo(({ setRefreshData, setIsLoading, setServerStatus }): ReactElement => {
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
       setOpen(!open);
     };
-
+    console.log('sidebar rendered')
     const drawerWidth: number = 340;
 
     const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -137,18 +138,21 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
               <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <List className={styles.sidebarButtonList}>
                   <ListItem>
-                    <CreateOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <CreateOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <PayOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <PayOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <ClearOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <ClearOrderButton setRefreshData={setRefreshData} />
+                  </ListItem>
+                  <ListItem>
+                    <SimulateButton setRefreshData={setRefreshData} />
                   </ListItem>
                 </List>
                 <List>
                   <ListItem>
-                    <StartServerButton setIsLoading={setIsLoading} refreshData={refreshData} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
+                    <StartServerButton setIsLoading={setIsLoading} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
                   </ListItem>
                 </List>
               </Box>
@@ -158,6 +162,6 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
 
       </div >
     )
-  }
+  });
 
 export default Sidebar;

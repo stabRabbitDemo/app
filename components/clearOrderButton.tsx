@@ -3,14 +3,14 @@ import Button from '@mui/material/Button';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import fakeData from '../fakeData';
 
-const ClearOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refreshData, setRefreshData }): ReactElement => {
+const ClearOrderButton: FC<{ setRefreshData: Function }> = ({ setRefreshData }): ReactElement => {
 
   const clearOrder: Function = (): void => {
     fetch('/api/archive')
       .then(res => res.json())
       .then(data => {
         setTimeout(() => {
-          setRefreshData(!refreshData)
+          setRefreshData(Math.random())
         }, 200);
       })
       .catch(error => console.log(error))

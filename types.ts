@@ -17,6 +17,15 @@ export interface ClientResponse {
   }>;
 }
 
+export interface IRefreshData {
+  paidTable: number;
+  unpaidTable: number; 
+  archiveTable: number; 
+  serverStatus: number; 
+  barChart: number;
+
+}
+
 export interface IReactApexChartOptions {
   chart: {
     type?: any;
