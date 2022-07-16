@@ -6,9 +6,13 @@ import fakeData from '../fakeData';
 const ClearOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refreshData, setRefreshData }): ReactElement => {
 
   const clearOrder: Function = (): void => {
-    fetch('/api/clear')
+    fetch('/api/archive')
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        setTimeout(() => {
+          setRefreshData(!refreshData)
+        }, 200);
+      })
       .catch(error => console.log(error))
   };
 
@@ -18,8 +22,8 @@ const ClearOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> =
       variant="contained"
       color="secondary"
       sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
-      onClick={() => console.log('clear order button clicked')}
-    ><ClearAllIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} /> Clear Order</Button>
+      onClick={() => clearOrder()}
+    ><ClearAllIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} /> Archive All</Button>
   )
 }
 

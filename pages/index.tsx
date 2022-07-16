@@ -28,21 +28,25 @@ const Home: NextPage = () => {
   // useEffect to pull in data and update state
 
   useEffect(() => {
+    // if (serverStatus === "Good"){
     fetch('/api/unpaidTable')
       .then(res => res.json())
       .then(data => {
         setUnpaidData(data)
       })
-      .catch((err) => setUnpaidData([]));
+      .catch((err) => setUnpaidData([]))
+    // };
   }, [refreshData]);
 
   useEffect(() => {
+    // if (serverStatus === "Good"){
     fetch('/api/paidTable')
       .then(res => res.json())
       .then(data => {
         setPaidData(data)
       })
-      .catch((err) => setPaidData([]));
+      .catch((err) => setPaidData([]))
+    // };
   }, [refreshData]);
 
   useEffect(() => {
@@ -60,12 +64,14 @@ const Home: NextPage = () => {
   }, [refreshData]);
 
   useEffect(() => {
+    // if (serverStatus === "Good"
     fetch('/api/archiveTable')
     .then(res => res.json())
     .then(data => {
       setArchiveData(data)
     })
     .catch((err) => setArchiveData([]))
+  // };
 },[refreshData]);
 
 
@@ -80,7 +86,7 @@ const Home: NextPage = () => {
           Total orders
         </Typography>
         <Typography sx={{ mb: 1 }} color="test.primary">
-          {unpaidData.length + paidData.length}
+          {unpaidData.length + paidData.length + archiveData.length}
         </Typography>
         <Typography variant="h6" component="div">
           Paid orders
@@ -98,7 +104,7 @@ const Home: NextPage = () => {
           Archived Orders
         </Typography>
         <Typography sx={{ mb: 1 }} color="warning.main">
-          2
+          {archiveData.length}
         </Typography>
         {/* <Typography variant="body2">
           well meaning and kindly.
