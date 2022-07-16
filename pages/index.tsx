@@ -19,10 +19,7 @@ const Home: NextPage = () => {
   const [paidData, setPaidData] = useState([]);
   const [archiveData, setArchiveData] = useState([]);
   const [serverStatus, setServerStatus] = useState("Down");
-
-  //setLoading for tables test - javan
   const [isLoading, setIsLoading] = useState(false);
-
   const [refreshData, setRefreshData] = useState(true);
 
   // useEffect to pull in data and update state
