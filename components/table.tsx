@@ -142,7 +142,6 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                                         variant="outlined"
                                         color="success"
                                         onClick={() => updateOrder("pay", row)}
-
                                     >Pay</Button>
                                 </TableCell>
                                 <TableCell id="archiveButtonCell">
