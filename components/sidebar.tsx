@@ -82,8 +82,8 @@ const mainListItems = (
 //   </Fragment>
 // );
 
-const Sidebar: FC<{ refreshData: {}, setRefreshData: Function, setIsLoading: Function, setServerStatus: Function }> =
-  memo(({ refreshData, setRefreshData, setIsLoading, setServerStatus }): ReactElement => {
+const Sidebar: FC<{ setRefreshData: Function, setIsLoading: Function, setServerStatus: Function }> =
+  memo(({ setRefreshData, setIsLoading, setServerStatus }): ReactElement => {
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
       setOpen(!open);
