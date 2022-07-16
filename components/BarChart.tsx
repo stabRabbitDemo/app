@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC, ReactElement } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -50,29 +50,29 @@ const barChartOptions = {
 
 
 
-const BarChart = () => {
+const BarChart: FC <{ paidData: Array<Array<string | number>>, unpaidData: Array<Array<string | number>>, archiveData: Array<Array<string | number>>}> = ({ paidData, unpaidData, archiveData }): ReactElement => {
     const theme = useTheme();
 
     const { primary, secondary } = theme.palette.text;
     const info = theme.palette.info.light;
 
-    const [series] = useState([
+    const [series, setSeries] = useState([
         {
             data: [{
-                x: 'Stream',
-                y: 80
+                x: 'Total Orders',
+                y: 0
             },
             {
-                x: 'View',
-                y: 42
+                x: 'Unpaid Orders',
+                y: 0
             },
             {
-                x: 'Clr',
-                y: 67
+                x: 'Paid Orders',
+                y: 0
             },
             {
-                x: 'Sta',
-                y: 34
+                x: 'Archived Orders',
+                y: 0
             },
             ]
         }
@@ -96,7 +96,29 @@ const BarChart = () => {
             }
         }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [primary, info, secondary]);
+        setSeries([
+            {
+                data: [{
+                    x: 'Total Orders',
+                    y: (paidData.length + unpaidData.length + archiveData.length)
+                },
+                {
+                    x: 'Unpaid Orders',
+                    y: unpaidData.length
+                },
+                {
+                    x: 'Paid Orders',
+                    y: paidData.length
+                },
+                {
+                    x: 'Archived Orders',
+                    y: archiveData.length
+                },
+                ]
+            }
+        ])
+
+    }, [primary, info, secondary, paidData, unpaidData, archiveData]);
 
     return (
         <div id="chart">

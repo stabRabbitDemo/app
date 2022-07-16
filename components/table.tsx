@@ -59,7 +59,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                     <TableCell><ColumnHeader>Archive</ColumnHeader></TableCell>
                 </TableRow>
             )
-        } else {
+        } else if (type === 'paid'){
             return (
                 <TableRow sx={{ font: "Public Sans", fontWeight: "600" }}>
                     <TableCell><ColumnHeader>Order ID</ColumnHeader></TableCell>
@@ -70,34 +70,56 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                     <TableCell><ColumnHeader>Archive</ColumnHeader></TableCell>
                 </TableRow>
             )
+        } else {
+            return (
+                <TableRow sx={{ font: "Public Sans", fontWeight: "600" }}>
+                <TableCell><ColumnHeader>Order ID</ColumnHeader></TableCell>
+                <TableCell><ColumnHeader>Product</ColumnHeader></TableCell>
+                <TableCell><ColumnHeader>Unit Price</ColumnHeader></TableCell>
+                <TableCell><ColumnHeader>Quantity</ColumnHeader></TableCell>
+             </TableRow>
+            )
         }
     }
 
     const RowsBody: FC<{ type: String, rowData: Array<Array<string | number>> }> = ({ type, rowData }): JSX.Element | null => {
         let tableCellFontSize = "16px";
+
+         // method to insert new row with updated status value
+         const updateOrder: Function = (update: String, row: (string | number)[]): void => {
+            if (update === 'pay'){  
+              fetch('/api/payone', {
+                  body: JSON.stringify(row),
+                  method: 'POST'
+              })
+                  .then(res => res.json())
+                  .then(data => {
+                    setTimeout(() => {
+                      setRefreshData(!refreshData)
+                    }, 100);
+
+                  })
+                  .catch(error => console.log(error))
+              }else if (update ==="archive") {
+                  fetch('/api/archiveone', {
+                      body: JSON.stringify(row),
+                      method: 'POST'
+                  })
+                      .then(res => res.json())
+                      .then(data => {
+                          setTimeout(() => {
+                              setRefreshData(!refreshData)
+                          }, 100);
+                      })
+              }
+          }
+        
+
         if (type === 'unpaid') {
             return (
                 <TableBody>
                     {Array.isArray(rowData) ? rowData.map((row: (string | number)[], index: number) => {
                         const isItemSelected: boolean = index % 2 === 0;
-
-                        // method to insert new row with updated status value
-                        const updateOrder: Function = (update: String): void => {
-                          if (update === 'pay'){  
-                            fetch('/api/payone', {
-                                body: JSON.stringify(row),
-                                method: 'POST'
-                            })
-                                .then(res => res.json())
-                                .then(data => {
-                                  setTimeout(() => {
-                                    setRefreshData(!refreshData)
-                                  }, 100);
-
-                                })
-                                .catch(error => console.log(error))
-                            }
-                        }
 
                         return (
                             <TableRow
@@ -119,17 +141,21 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                                     <Button
                                         variant="outlined"
                                         color="success"
-                                        onClick={() => updateOrder("pay")}
+                                        onClick={() => updateOrder("pay", row)}
+
                                     >Pay</Button>
                                 </TableCell>
-                                <TableCell id="clearButtonCell">
-                                    <Button variant="outlined">Clear</Button>
+                                <TableCell id="archiveButtonCell">
+                                    <Button 
+                                        variant="outlined"
+                                        onClick={() => updateOrder("archive", row)}
+                                    >Archive</Button>
                                 </TableCell>
                             </TableRow>)
                     }) : null}
                 </TableBody>
             )
-        } else {
+        } else if (type === 'paid') {
             return (
                 <TableBody>
                     {Array.isArray(rowData) ? rowData.map((row: (string | number)[], index: number) => {
@@ -151,13 +177,39 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                                 <TableCell id="statusCell" align="center">
                                     <OrderStatus status={row[4]} />
                                 </TableCell>
-                                <TableCell id="clearButtonCell">
-                                    <Button variant="outlined">Archive</Button>
+                                <TableCell id="archiveButtonCell">
+                                    <Button 
+                                        variant="outlined"
+                                        onClick = {() => updateOrder("archive", row)}
+                                    >Archive</Button>
                                 </TableCell>
                             </TableRow>)
                     }) : null}
                 </TableBody>
 
+            )
+        } else {
+            return (
+                <TableBody>
+                    {Array.isArray(rowData) ? rowData.map((row: (string | number)[], index: number) => {
+                        const isItemSelected: boolean = index % 2 === 0;
+
+                        return (
+                            <TableRow
+                                hover
+                                role="checkbox"
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                aria-checked={isItemSelected}
+                                tabIndex={-1}
+                                key={index}
+                                selected={isItemSelected}>
+                                <TableCell id="OrderIDCell" sx={{ color: 'gray' }} align="center">{row[0]}</TableCell>
+                                <TableCell id="ProductCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[1]}</TableCell>
+                                <TableCell id="unitPriceCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[2]}</TableCell>
+                                <TableCell id="quantityCell" sx={{ fontSize: tableCellFontSize }} align="center">{row[3]}</TableCell>
+                            </TableRow>)
+                    }) : null}
+                </TableBody>
             )
         }
     }
