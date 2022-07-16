@@ -6,7 +6,6 @@ const SimulateButton: FC<{ setRefreshData: Function }> = memo(({ setRefreshData 
   const [intervalId, setIntervalId] = useState(0);
 
   console.log('simulate button rendered');
-  let hackSwitch = true;
   const simulateOrders: Function = () => {
     fetch('/api/create')
       .then(res => res.json())
