@@ -138,13 +138,13 @@ const Sidebar: FC<{ refreshData: {}, setRefreshData: Function, setIsLoading: Fun
               <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <List className={styles.sidebarButtonList}>
                   <ListItem>
-                    <CreateOrderButton refreshData = {refreshData} setRefreshData={setRefreshData} />
+                    <CreateOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <PayOrderButton refreshData = {refreshData} setRefreshData={setRefreshData} />
+                    <PayOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <ClearOrderButton refreshData = {refreshData} setRefreshData={setRefreshData} />
+                    <ClearOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
                     <SimulateButton setRefreshData={setRefreshData} />
@@ -152,7 +152,7 @@ const Sidebar: FC<{ refreshData: {}, setRefreshData: Function, setIsLoading: Fun
                 </List>
                 <List>
                   <ListItem>
-                    <StartServerButton refreshData = {refreshData} setIsLoading={setIsLoading} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
+                    <StartServerButton setIsLoading={setIsLoading} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
                   </ListItem>
                 </List>
               </Box>
