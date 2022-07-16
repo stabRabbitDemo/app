@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 
-const CreateOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refreshData, setRefreshData }): ReactElement => {
+const CreateOrderButton: FC<{ setRefreshData: Function }> = ({ setRefreshData }): ReactElement => {
 
   const createOrder: Function = (): void => {
     fetch('/api/create')
@@ -11,7 +11,7 @@ const CreateOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> 
         // console.log('refreshdata: ', refreshData)
         // setRefreshData(!refreshData)
         setTimeout(() => {
-          setRefreshData(!refreshData)
+          setRefreshData(Math.random())
         }, 100);
       })
       .catch(error => console.log(error))

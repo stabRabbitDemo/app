@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import PaymentIcon from '@mui/icons-material/Payment';
 import fakeData from '../fakeData';
 
-const PayOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = ({ refreshData, setRefreshData }): ReactElement => {
+const PayOrderButton: FC<{ setRefreshData: Function }> = ({ setRefreshData }): ReactElement => {
 
   const payOrder: Function = (): void => {
     fetch('/api/pay')
@@ -11,7 +11,7 @@ const PayOrderButton: FC<{ refreshData: Boolean, setRefreshData: Function }> = (
       .then(data => {
         // console.log(data);
         setTimeout(() => {
-          setRefreshData(!refreshData)
+          setRefreshData(Math.random())
         }, 200);
       })
       .catch(error => console.log(error))

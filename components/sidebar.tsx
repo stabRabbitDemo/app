@@ -23,6 +23,7 @@ import StartServerButton from './startServerButton';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import reactSyntaxHighlighter from 'react-syntax-highlighter';
+import SimulateButton from './simulate';
 
 
 const mainListItems = (
@@ -33,56 +34,11 @@ const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="ksqlDB-JS Demo App" primaryTypographyProps={{ fontSize: '20px', color: "teal" }} />
     </ListItemButton>
-    {/* <ListItemButton>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton> */}
   </Fragment>
 );
 
-// const secondaryListItems = (
-//   <Fragment>
-//     <ListSubheader sx={{fontSize: 20}} component="div" inset>
-//       Saved reports
-//     </ListSubheader>
-//     <List className={styles.sidebarButtonList}>
-//     <ListItem>
-//       <CreateOrderButton refreshData = {refreshData} setRefreshData = {setRefreshData} />
-//     </ListItem>
-//     <ListItem>
-//     <PayOrderButton/>
-//     </ListItem>
-
-//     <ListItem>
-//     <ClearOrderButton />
-//     </ListItem>
-
-//     </List>
-//   </Fragment>
-// );
-
-const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading: Function, paidData: (string | number)[][], setServerStatus: Function }> =
-  ({ refreshData, setRefreshData, setIsLoading, paidData, setServerStatus }): ReactElement => {
+const Sidebar: FC<{ setRefreshData: Function, setIsLoading: Function, setServerStatus: Function }> =
+  ({ setRefreshData, setIsLoading, setServerStatus }): ReactElement => {
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
       setOpen(!open);
@@ -137,18 +93,21 @@ const Sidebar: FC<{ refreshData: Boolean, setRefreshData: Function, setIsLoading
               <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <List className={styles.sidebarButtonList}>
                   <ListItem>
-                    <CreateOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <CreateOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <PayOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <PayOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <ClearOrderButton refreshData={refreshData} setRefreshData={setRefreshData} />
+                    <ClearOrderButton setRefreshData={setRefreshData} />
                   </ListItem>
                 </List>
                 <List>
                   <ListItem>
-                    <StartServerButton setIsLoading={setIsLoading} refreshData={refreshData} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
+                    <SimulateButton setRefreshData={setRefreshData}/>
+                  </ListItem>
+                  <ListItem>
+                    <StartServerButton setIsLoading={setIsLoading} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
                   </ListItem>
                 </List>
               </Box>

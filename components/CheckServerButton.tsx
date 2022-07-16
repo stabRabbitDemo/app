@@ -3,14 +3,14 @@ import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 
-const CheckServerButton: FC<{ refreshData: Boolean, setRefreshData: Function, serverStatus: string, setServerStatus: Function }> = ({ refreshData, setRefreshData, serverStatus, setServerStatus }): ReactElement => {
+const CheckServerButton: FC<{ setRefreshData: Function, serverStatus: string, setServerStatus: Function }> = ({ setRefreshData, serverStatus, setServerStatus }): ReactElement => {
 
   const checkServerStatus: Function = (): void => {
     fetch('/api/serverStatus')
       .then(res => res.json())
       .then(data => {
         setTimeout(() => {
-          setRefreshData(!refreshData)
+          setRefreshData(Math.random())
         }, 100);
         if (data === true) {
           setServerStatus("Good");
