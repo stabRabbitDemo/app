@@ -2,7 +2,7 @@ import { FC, ReactElement, useState, useEffect, useContext, memo } from 'react';
 import Button from '@mui/material/Button';
 import LoopIcon from '@mui/icons-material/Loop';
 
-const SimulateButton: FC<{ setRefreshData: Function }> = memo(({ setRefreshData }): ReactElement => {
+const SimulateButton: FC<{ refreshData: {}, setRefreshData: Function }> = memo(({ refreshData, setRefreshData }): ReactElement => {
   const [intervalId, setIntervalId] = useState(0);
 
   console.log('simulate button rendered');
@@ -12,7 +12,7 @@ const SimulateButton: FC<{ setRefreshData: Function }> = memo(({ setRefreshData 
       .then(res => res.json())
       .then(data => {
         console.log('added');
-        setRefreshData((hackSwitch: Boolean) => !hackSwitch);
+        setRefreshData({..., updateTable: Math.random()});
       })
       .catch(error => console.log(error))
   };

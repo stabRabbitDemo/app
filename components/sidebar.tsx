@@ -82,8 +82,8 @@ const mainListItems = (
 //   </Fragment>
 // );
 
-const Sidebar: FC<{ setRefreshData: Function, setIsLoading: Function, setServerStatus: Function }> =
-  memo(({ setRefreshData, setIsLoading, setServerStatus }): ReactElement => {
+const Sidebar: FC<{ refreshData: {}, setRefreshData: Function, setIsLoading: Function, setServerStatus: Function }> =
+  memo(({ refreshData, setRefreshData, setIsLoading, setServerStatus }): ReactElement => {
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
       setOpen(!open);
@@ -138,13 +138,13 @@ const Sidebar: FC<{ setRefreshData: Function, setIsLoading: Function, setServerS
               <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <List className={styles.sidebarButtonList}>
                   <ListItem>
-                    <CreateOrderButton setRefreshData={setRefreshData} />
+                    <CreateOrderButton refreshData = {refreshData} setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <PayOrderButton setRefreshData={setRefreshData} />
+                    <PayOrderButton refreshData = {refreshData} setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
-                    <ClearOrderButton setRefreshData={setRefreshData} />
+                    <ClearOrderButton refreshData = {refreshData} setRefreshData={setRefreshData} />
                   </ListItem>
                   <ListItem>
                     <SimulateButton setRefreshData={setRefreshData} />
@@ -152,7 +152,7 @@ const Sidebar: FC<{ setRefreshData: Function, setIsLoading: Function, setServerS
                 </List>
                 <List>
                   <ListItem>
-                    <StartServerButton setIsLoading={setIsLoading} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
+                    <StartServerButton refreshData = {refreshData} setIsLoading={setIsLoading} setRefreshData={setRefreshData} setServerStatus={setServerStatus} />
                   </ListItem>
                 </List>
               </Box>
