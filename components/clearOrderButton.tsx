@@ -10,7 +10,7 @@ const ClearOrderButton: FC<{ setRefreshData: Function }> = ({ setRefreshData }):
       .then(res => res.json())
       .then(data => {
         setTimeout(() => {
-          setRefreshData(!refreshData)
+          setRefreshData(Math.random())
         }, 200);
       })
       .catch(error => console.log(error))
