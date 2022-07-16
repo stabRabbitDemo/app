@@ -17,8 +17,8 @@ const Home: NextPage = () => {
   // set-up table data in state
   const [unpaidData, setUnpaidData] = useState([]);
   const [paidData, setPaidData] = useState([]);
-  const [serverStatus, setServerStatus] = useState("Down");
   const [archiveData, setArchiveData] = useState([]);
+  const [serverStatus, setServerStatus] = useState("Down");
 
   //setLoading for tables test - javan
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +50,15 @@ const Home: NextPage = () => {
   }, [refreshData]);
 
   useEffect(() => {
+    fetch('/api/archiveTable')
+      .then(res => res.json())
+      .then(data => {
+        setArchiveData(data)
+      })
+      .catch((err) => setArchiveData([]))
+  }, [refreshData]);
+
+  useEffect(() => {
     fetch('/api/serverStatus')
       .then(res => res.json())
       .then(data => {
@@ -62,19 +71,6 @@ const Home: NextPage = () => {
       })
       .catch((err) => setServerStatus("Down"));
   }, [refreshData]);
-
-  useEffect(() => {
-    // if (serverStatus === "Good"
-    fetch('/api/archiveTable')
-    .then(res => res.json())
-    .then(data => {
-      setArchiveData(data)
-    })
-    .catch((err) => setArchiveData([]))
-  // };
-},[refreshData]);
-
-
 
   const summaryCard = (
     <React.Fragment>
@@ -135,22 +131,51 @@ const Home: NextPage = () => {
       </Head>
       <Sidebar refreshData={refreshData} setRefreshData={setRefreshData} setIsLoading={setIsLoading} paidData={paidData} setServerStatus={setServerStatus} />
       <main>
-        <Grid container spacing={2.75} sx={{ ml: 2 }}>
-          {/* row 1 table */}
-          <Grid item xs={12} md={7} lg={8} >
-            <StyledHeader variant="h5">Unpaid Orders</StyledHeader>
-            <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={unpaidData} tableType="unpaid" />
+        <Grid container spacing={2.75} sx={{ ml: 2, mb: 3 }}>
+
+          <Grid container item columnSpacing={2.75} xs={12} md={7} lg={8}>
+            {/* column 1 */}
+            <Grid item xs={12} md={12} lg={12} sx={{ mb: 3.5 }}>
+              <StyledHeader variant="h5">Unpaid Orders</StyledHeader>
+              <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={unpaidData} tableType="unpaid" />
+            </Grid>
+            <Grid item xs={12} md={12} lg={12} sx={{ mb: 3.5 }}>
+              <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
+                <StyledHeader variant="h5">Paid Orders</StyledHeader>
+                <Stack direction="row" alignItems="center" spacing={0}>
+                  <Button
+                    size="small"
+                    color={'secondary'}
+                    variant={'outlined'}
+                  >
+                    PRICE
+                  </Button>
+                  <Button
+                    size="small"
+                    color={'primary'}
+                    variant={'outlined'}
+                  >
+                    QUANTITY
+                  </Button>
+                </Stack>
+              </Stack>
+              <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={paidData} tableType="paid" />
+            </Grid>
+            <Grid item xs={12} md={12} lg={12} sx={{ mb: 3 }}>
+              <StyledHeader variant="h5">Archived Orders</StyledHeader>
+              <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={archiveData} tableType="archive" />
+            </Grid>
           </Grid>
-          {/* row 1 server card*/}
-          <Grid item xs={0} md={4} lg={3}>
-            {/* <StyledHeader variant="h5">Summary</StyledHeader> */}
-            <Box sx={{ minWidth: 275, m: 2 }}>
-              <Card variant="outlined">{summaryCard}</Card>
-            </Box>
-            <Box sx={{ p: 0.25, m: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
-              <CardContent>
-                <Stack direction="row" justifyContent="space-evenly" alignItems={"center"}>
-                  {/* <Avatar
+          {/* column 2 */}
+          <Grid container item columnSpacing={2.75} xs={0} md={4} lg={3} >
+            <Grid item>
+              <Box sx={{ minWidth: 275, m: 2 }}>
+                <Card variant="outlined">{summaryCard}</Card>
+              </Box>
+              <Box sx={{ p: 0, m: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
+                <CardContent>
+                  <Stack direction="row" justifyContent="space-evenly" alignItems={"center"}>
+                    {/* <Avatar
                     sx={{
                       color: 'info.main',
                       bgcolor: 'error.lighter'
@@ -158,51 +183,17 @@ const Home: NextPage = () => {
                   >
                     <SettingOutlined />
                   </Avatar> */}
-                  <CheckServerButton refreshData={refreshData} setRefreshData={setRefreshData} serverStatus={serverStatus} setServerStatus={setServerStatus} />
-                  <Typography variant="h6" component="div">
-                    Server Status: {serverStatus}
-                  </Typography>
-                </Stack>
-              </CardContent>
-            </Box>
-          </Grid>
-          {/* row 2 table */}
-          <Grid item xs={12} md={7} lg={8}>
-            <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
-              <StyledHeader variant="h5">Paid Orders</StyledHeader>
-              <Stack direction="row" alignItems="center" spacing={0}>
-                <Button
-                  size="small"
-                  color={'secondary'}
-                  variant={'outlined'}
-                >
-                  PRICE
-                </Button>
-                <Button
-                  size="small"
-                  color={'primary'}
-                  variant={'outlined'}
-                >
-                  QUANTITY
-                </Button>
-              </Stack>
-            </Stack>
-            <TableDisplay refreshData={refreshData} setRefreshData={setRefreshData} data={paidData} tableType="paid" />
-          </Grid>
-          {/* row 2 graph */}
-
-          <Grid item xs={0} md={4} lg={3}>
-            <Box sx={{ m: 2, p: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
-              <BarChart paidData = {paidData} unpaidData = {unpaidData} archiveData = {archiveData}/>
-            </Box>
-          </Grid>
-
-          {/* row 3 */}
-          <Grid item xs={12} md={7} lg={8} sx={{ mb: 4 }}>
-            <StyledHeader variant="h5">Archived Orders</StyledHeader>
-            <TableDisplay refreshData = {refreshData} setRefreshData = {setRefreshData} data={archiveData} tableType="archive" />
-          </Grid>
-          <Grid item xs={0} md={4} lg={3} sx={{ display: { sm: 'block', md: 'block', lg: 'block' } }}>
+                    <CheckServerButton refreshData={refreshData} setRefreshData={setRefreshData} serverStatus={serverStatus} setServerStatus={setServerStatus} />
+                    <Typography variant="h6" component="div">
+                      Server Status: {serverStatus}
+                    </Typography>
+                  </Stack>
+                </CardContent>
+              </Box>
+              <Box sx={{ m: 2, p: 2, bgcolor: "white", border: "1px solid rgb(230, 235, 241)" }}>
+                <BarChart paidData={paidData} unpaidData={unpaidData} archiveData={archiveData} />
+              </Box>
+            </Grid>
           </Grid>
         </Grid>
       </main>
