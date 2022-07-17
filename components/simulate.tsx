@@ -43,20 +43,26 @@ const SimulateButton: FC<{ setRefreshData: Function }> = memo(({ setRefreshData 
     }}>
       <Button
         id="createOrderButton"
-        variant="contained"
-        color="primary"
-        sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
+        variant="outlined"
+        sx={{
+          color: "#2196f3", backgroundColor: '#e3f2fd', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 500, width: "16rem", mb: 2.5, border: "3px solid transparent", ':hover': {
+            bgcolor: "#e8eaf6", border: "3px solid"
+          },
+        }}
         onClick={() => setIntervalId(handleStart())}
-      ><PlayArrowIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} />Start</Button>
+      ><PlayArrowIcon style={{ 'color': "#1e88e5" }} sx={{ mr: "1rem" }} />Start Simulation</Button>
       <Button
         id="createOrderButton"
-        variant="contained"
-        color="primary"
-        sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
+        variant="outlined"
+        sx={{
+          color: "#fb8c00", backgroundColor: '#fff3e0', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 500, width: "16rem", border: "3px solid transparent", ':hover': {
+            bgcolor: '#fffde7', border: "3px solid"
+          },
+        }}
         onClick={() => {
           clearInterval(intervalId);
         }}
-      ><StopIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} />Stop</Button>
+      ><StopIcon style={{ 'color': "#fb8c00" }} sx={{ mr: "1rem" }} />Stop Simulation</Button>
     </div >
 
   )

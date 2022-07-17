@@ -36,6 +36,10 @@ const barChartOptions = {
         },
         axisTicks: {
             show: true
+        },
+        labels: {
+            fontSize: "16px",
+            fontWeight: 500
         }
     },
     yaxis: {
@@ -50,7 +54,7 @@ const barChartOptions = {
 
 
 
-const BarChart: FC <{ paidData: Array<Array<string | number>>, unpaidData: Array<Array<string | number>>, archiveData: Array<Array<string | number>>}> = ({ paidData, unpaidData, archiveData }): ReactElement => {
+const BarChart: FC<{ paidData: Array<Array<string | number>>, unpaidData: Array<Array<string | number>>, archiveData: Array<Array<string | number>> }> = ({ paidData, unpaidData, archiveData }): ReactElement => {
     const theme = useTheme();
 
     const { primary, secondary } = theme.palette.text;
@@ -59,19 +63,19 @@ const BarChart: FC <{ paidData: Array<Array<string | number>>, unpaidData: Array
     const [series, setSeries] = useState([
         {
             data: [{
-                x: 'Total Orders',
+                x: 'Total',
                 y: 0
             },
             {
-                x: 'Unpaid Orders',
+                x: 'Unpaid',
                 y: 0
             },
             {
-                x: 'Paid Orders',
+                x: 'Paid',
                 y: 0
             },
             {
-                x: 'Archived Orders',
+                x: 'Archived',
                 y: 0
             },
             ]
