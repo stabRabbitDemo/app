@@ -11,7 +11,7 @@ import Dot from './@extended/Dot';
 import { styled } from '@mui/material/styles';
 
 
-const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String, refreshData: Boolean, setRefreshData: Function}> = ({ data, tableType, refreshData, setRefreshData }): ReactElement => {
+const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String, refreshData: Boolean, setRefreshData: Function }> = ({ data, tableType, refreshData, setRefreshData }): ReactElement => {
     // {"orderId":"1", "productName":"brush", "unitPrice": "20", "quantity": 1, "status": "?"}
     // ==============================|| ORDER TABLE - STATUS ||============================== //
 
@@ -59,7 +59,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                     <TableCell><ColumnHeader>Archive</ColumnHeader></TableCell>
                 </TableRow>
             )
-        } else if (type === 'paid'){
+        } else if (type === 'paid') {
             return (
                 <TableRow sx={{ font: "Public Sans", fontWeight: "600" }}>
                     <TableCell><ColumnHeader>Order ID</ColumnHeader></TableCell>
@@ -73,11 +73,11 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
         } else {
             return (
                 <TableRow sx={{ font: "Public Sans", fontWeight: "600" }}>
-                <TableCell><ColumnHeader>Order ID</ColumnHeader></TableCell>
-                <TableCell><ColumnHeader>Product</ColumnHeader></TableCell>
-                <TableCell><ColumnHeader>Unit Price</ColumnHeader></TableCell>
-                <TableCell><ColumnHeader>Quantity</ColumnHeader></TableCell>
-             </TableRow>
+                    <TableCell><ColumnHeader>Order ID</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Product</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Unit Price</ColumnHeader></TableCell>
+                    <TableCell><ColumnHeader>Quantity</ColumnHeader></TableCell>
+                </TableRow>
             )
         }
     }
@@ -85,35 +85,35 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
     const RowsBody: FC<{ type: String, rowData: Array<Array<string | number>> }> = ({ type, rowData }): JSX.Element | null => {
         let tableCellFontSize = "16px";
 
-         // method to insert new row with updated status value
-         const updateOrder: Function = (update: String, row: (string | number)[]): void => {
-            if (update === 'pay'){  
-              fetch('/api/payone', {
-                  body: JSON.stringify(row),
-                  method: 'POST'
-              })
-                  .then(res => res.json())
-                  .then(data => {
-                    setTimeout(() => {
-                      setRefreshData(!refreshData)
-                    }, 100);
+        // method to insert new row with updated status value
+        const updateOrder: Function = (update: String, row: (string | number)[]): void => {
+            if (update === 'pay') {
+                fetch('/api/payone', {
+                    body: JSON.stringify(row),
+                    method: 'POST'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        setTimeout(() => {
+                            setRefreshData(!refreshData)
+                        }, 100);
 
-                  })
-                  .catch(error => console.log(error))
-              }else if (update ==="archive") {
-                  fetch('/api/archiveone', {
-                      body: JSON.stringify(row),
-                      method: 'POST'
-                  })
-                      .then(res => res.json())
-                      .then(data => {
-                          setTimeout(() => {
-                              setRefreshData(!refreshData)
-                          }, 100);
-                      })
-              }
-          }
-        
+                    })
+                    .catch(error => console.log(error))
+            } else if (update === "archive") {
+                fetch('/api/archiveone', {
+                    body: JSON.stringify(row),
+                    method: 'POST'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        setTimeout(() => {
+                            setRefreshData(!refreshData)
+                        }, 100);
+                    })
+            }
+        }
+
 
         if (type === 'unpaid') {
             return (
@@ -125,7 +125,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                             <TableRow
                                 hover
                                 role="checkbox"
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 }, bgcolor: "white" }}
                                 aria-checked={isItemSelected}
                                 tabIndex={-1}
                                 key={index}
@@ -145,7 +145,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                                     >Pay</Button>
                                 </TableCell>
                                 <TableCell id="archiveButtonCell">
-                                    <Button 
+                                    <Button
                                         variant="outlined"
                                         onClick={() => updateOrder("archive", row)}
                                     >Archive</Button>
@@ -164,7 +164,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                             <TableRow
                                 hover
                                 role="checkbox"
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 }, bgcolor: "white" }}
                                 aria-checked={isItemSelected}
                                 tabIndex={-1}
                                 key={index}
@@ -177,9 +177,9 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                                     <OrderStatus status={row[4]} />
                                 </TableCell>
                                 <TableCell id="archiveButtonCell">
-                                    <Button 
+                                    <Button
                                         variant="outlined"
-                                        onClick = {() => updateOrder("archive", row)}
+                                        onClick={() => updateOrder("archive", row)}
                                     >Archive</Button>
                                 </TableCell>
                             </TableRow>)
@@ -216,7 +216,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
 
     return (
         <Box sx={{
-            backgroundColor: "#f5f5f5",
+            backgroundColor: "white",
             borderRadius: '8px',
             border: "1px",
             borderColor: "gray",
@@ -225,7 +225,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                 sx={{
                     overflowX: 'auto',
                     overflowY: 'scroll',
-                    height: '27vh',
+                    height: '34vh',
                     position: 'relative',
                     display: 'block',
                     border: "1px solid rgb(230, 235, 241)",
