@@ -33,9 +33,9 @@ const StartServerButton: FC<{ setIsLoading: Function, setRefreshData: Function, 
       <Button
         id="createOrderButton"
         variant="contained"
-        sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
+        sx={{ backgroundColor: "#3f51b5", padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
         onClick={() => startServer()}
-      ><DnsIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} />Start Server</Button>
+      ><DnsIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} />Restart Server</Button>
     )
   }
 

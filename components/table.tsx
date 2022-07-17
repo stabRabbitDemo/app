@@ -225,7 +225,7 @@ const tableDisplay: FC<{ data: Array<Array<string | number>>, tableType: String,
                 sx={{
                     overflowX: 'auto',
                     overflowY: 'scroll',
-                    height: '34vh',
+                    height: '31vh',
                     position: 'relative',
                     display: 'block',
                     border: "1px solid rgb(230, 235, 241)",

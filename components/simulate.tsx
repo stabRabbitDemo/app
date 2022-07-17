@@ -43,20 +43,18 @@ const SimulateButton: FC<{ setRefreshData: Function }> = memo(({ setRefreshData 
     }}>
       <Button
         id="createOrderButton"
-        variant="contained"
-        color="primary"
-        sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
+        variant="outlined"
+        sx={{ backgroundColor: '#bbdefb', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 600, width: "16rem", mb: 1, border: "2px solid" }}
         onClick={() => setIntervalId(handleStart())}
-      ><PlayArrowIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} />Start</Button>
+      ><PlayArrowIcon style={{ 'color': "#1e88e5" }} sx={{ mr: "1rem" }} />Start Simulation</Button>
       <Button
         id="createOrderButton"
-        variant="contained"
-        color="primary"
-        sx={{ padding: "1rem", margin: "1rem", fontSize: "large", width: "16rem" }}
+        variant="outlined"
+        sx={{ backgroundColor: '#ffcc80', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 600, width: "16rem", border: "2px solid" }}
         onClick={() => {
           clearInterval(intervalId);
         }}
-      ><StopIcon style={{ 'color': "white" }} sx={{ mr: "1rem" }} />Stop</Button>
+      ><StopIcon style={{ 'color': "#fb8c00" }} sx={{ mr: "1rem" }} />Stop Simulation</Button>
     </div >
 
   )
