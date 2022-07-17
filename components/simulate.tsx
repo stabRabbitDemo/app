@@ -44,15 +44,19 @@ const SimulateButton: FC<{ setRefreshData: Function }> = memo(({ setRefreshData 
       <Button
         id="createOrderButton"
         variant="outlined"
-        sx={{ color: "#2196f3", backgroundColor: '#e3f2fd', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 500, width: "16rem", mb: 2, border: "2px solid" }}
+        sx={{
+          color: "#2196f3", backgroundColor: '#e3f2fd', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 500, width: "16rem", mb: 2.5, border: "3px solid transparent", ':hover': {
+            bgcolor: "#e8eaf6", border: "3px solid"
+          },
+        }}
         onClick={() => setIntervalId(handleStart())}
       ><PlayArrowIcon style={{ 'color': "#1e88e5" }} sx={{ mr: "1rem" }} />Start Simulation</Button>
       <Button
         id="createOrderButton"
         variant="outlined"
         sx={{
-          color: "#fb8c00", backgroundColor: '#fff3e0', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 500, width: "16rem", border: "2px solid #fb8c00", ':hover': {
-            bgcolor: '#ffebee'
+          color: "#fb8c00", backgroundColor: '#fff3e0', padding: "1rem", mx: "1rem", fontSize: "medium", fontWeight: 500, width: "16rem", border: "3px solid transparent", ':hover': {
+            bgcolor: '#fffde7', border: "3px solid"
           },
         }}
         onClick={() => {
