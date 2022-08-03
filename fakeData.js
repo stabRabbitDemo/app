@@ -1,12 +1,15 @@
+const ksqldb = require('ksqldb-js');
 const { faker } = require('@faker-js/faker');
 const fakeData = {};
 
+const client = new ksqldb({ksqldbURL: 'http://localhost:8088'})
+
 fakeData.createOrder = () => {
   const productName = faker.commerce.product();
-  const unitPrice = faker.commerce.price();
+  const unitPrice = parseInt(faker.commerce.price());
   const quantity = Math.floor(Math.random() * 100);
   const status = 'UNPAID';
-  const orderId = uuid();
+  const orderId = faker.datatype.uuid();
   return {
     orderId,
     productName,
@@ -17,7 +20,9 @@ fakeData.createOrder = () => {
 };
 
 fakeData.addToOpenOrder = (dataArr) => {
-
+  // insert the newly created order into the ORDERS stream with orderTopic
+  // client.insertStream('ORDERS', dataArr);
+  return;
 };
 
 fakeData.updateOrderQty = (dataArr) => {
