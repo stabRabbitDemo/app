@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ksQlient Ecommerce Demo App
 
-## Getting Started
+This is a demo application to showcase the use of [ksQlient]() within a JavaScript application to process stream processing workloads in ksqlDB.
 
-First, run the development server:
+The app simulates an e-commerce website where a customer order arrives unpaid in a stream and is then pushed to a service that processes customer payment.
 
-```bash
-npm run dev
-# or
-yarn dev
+Once payment is verified, the order is then pushed to another service downstream (in our case it is archive).
+
+# Setup
+
+## Clone repo, cd into it:
+
+Install all dependencies with `npm install`, then run:
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+npm run dev
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Features
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+![](./src/static/settings.gif)
 
-## Learn More
+## Create an order
 
-To learn more about Next.js, take a look at the following resources:
+## Pay all unpaid orders
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Archive all unpaid and paid orders
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Start and stop simulation of orders getting processed/paid and archived
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Start server - restarts application and clears all order data
