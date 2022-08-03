@@ -4,7 +4,9 @@ This is a demo application to showcase the use of [ksQlient]() within a JavaScri
 
 The app simulates an e-commerce website where a customer order arrives unpaid in a stream and is then pushed to a service that processes customer payment.
 
-Once payment is verified, the order is then pushed to another service downstream (in our case it is archive).
+Once payment is verified, the order is then pushed to an archive service downstream.
+
+The table and chart on the right shows the number of orders in real time.
 
 # Setup
 
@@ -12,22 +14,20 @@ Once payment is verified, the order is then pushed to another service downstream
 
 Install all dependencies with `npm install`, then run:
 
-```
-
+```bash
 npm run dev
-
 ```
 
 # Features
 
 ![](./src/static/settings.gif)
 
-## Create an order
+- Create an order
 
-## Pay all unpaid orders
+- Pay all unpaid orders
 
-## Archive all unpaid and paid orders
+- Archive all unpaid and paid orders
 
-## Start and stop simulation of orders getting processed/paid and archived
+- Start and stop simulation of orders getting processed/paid and archived
 
-## Start server - restarts application and clears all order data
+- Start server - restarts application and clears all order data
